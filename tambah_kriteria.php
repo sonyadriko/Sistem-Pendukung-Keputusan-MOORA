@@ -22,7 +22,7 @@ if (!isset($_SESSION['id_users'])) {
     <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
     <meta name="author" content="Łukasz Holeczek">
     <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
-    <title>Handphone</title>
+    <title>Tambah Data Kriteria</title>
     <link rel="apple-touch-icon" sizes="57x57" href="assets/favicon/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="assets/favicon/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="assets/favicon/apple-icon-72x72.png">
@@ -51,72 +51,51 @@ if (!isset($_SESSION['id_users'])) {
 </head>
 
 <body>
-    <?php include 'sidebar.php' ?>
+    <?php include 'sidebar.php'; ?>
     <div class="wrapper d-flex flex-column min-vh-100 bg-light">
-        <?php include 'header.php' ?>
+        <?php include 'header.php'; ?>
         <div class="body flex-grow-1 px-3">
             <div class="container-lg">
                 <div class="row">
-                <div class="col-md-12">
-              <div class="card mb-4">
-                <div class="card-header">Data Handphone</div>
-                <div class="card-body">
-                    <!-- <button class="mb-4">Tambah Data</button> -->
-                    <a href="tambah_data.php" class="btn btn-primary btn-user mb-4">Tambah Data</a>
-                <table class="table table-bordered table-striped-columns">
-                        <thead>
-                            <th>No</th>
-                            <th>Merk</th>
-                            <th>Harga</th>
-                            <th>Daya Tahan</th>
-                            <th>Sistem</th>
-                            <th>Ram</th>
-                            <th>Tahun</th>
-                            <th>Memori</th>
-                        </thead>
-                        <tbody>
-                        <?php 
-                $no = 1;
-                $get_data = mysqli_query($conn, "select * from handphone");
-                while($display = mysqli_fetch_array($get_data)) {
-                    $id = $display['id_handphone'];
-                    $merk = $display['merk'];
-                    $harga = $display['harga'];
-                    $daya = $display['daya_tahan'];
-                    $sistem = $display['sistem_operasi'];
-                    $ram = $display['ram'];
-                    $tahun = $display['tahun_launching'];
-                    $memori = $display['memori_internal'];
-
-                
-                ?>
-                            <tr>
-                                <td><?php echo $no ?></td>
-                                <td><?php echo $merk ?></td>
-                                <td><?php echo $harga ?></td>
-                                <td><?php echo $daya . "mAH" ?></td>
-                                <td><?php echo $sistem ?></td>
-                                <td><?php echo $ram ?></td>
-                                <td><?php echo $tahun ?></td>
-                                <td><?php echo $memori ?></td>
+                    <div class="col-md-12">
+                        <div class="card mb-4">
+                            <div class="card-header">Tambah Data Kriteria</div>
+                            <div class="card-body">
+                                <form action="tambah_kriteria.php" method="post">
+                                    <div class="row mb-3">
+                                        <label class="col-sm-2 col-form-label" for="nama">Nama Kriteria</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" id="nama" name="nama" type="text"
+                                                placeholder="Enter Nama Kriteria">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label class="col-sm-2 col-form-label" for="bobot">Bobot Kriteria</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" id="bobot" name="bobot" type="number"
+                                                placeholder="Enter Bobot Kriteria">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label class="col-sm-2 col-form-label" for="merk">Tipe Kriteria</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" id="tipe" name="tipe" type="text"
+                                                placeholder="Enter Tipe Kriteria">
+                                        </div>
+                                    </div>
                                 
-                            </tr>
-                            <?php
-              $no++;
-                }
-              ?>
-                        </tbody>
-                    </table>
-                </div>
-              </div>
-                </div>
-                    
+                                    <button class="btn btn-primary" type="submit" name="submit">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <!-- /.row-->
                 <!-- /.card.mb-4-->
             </div>
         </div>
-       <?php include 'footer.php' ?>
+        <?php include 'footer.php'; ?>
     </div>
     <!-- CoreUI and necessary plugins-->
     <script src="vendors/@coreui/coreui/js/coreui.bundle.min.js"></script>
@@ -131,3 +110,26 @@ if (!isset($_SESSION['id_users'])) {
 </body>
 
 </html>
+<?php 
+    include 'koneksi.php';
+
+    if (isset($_POST['submit'])) {
+        $nama = mysqli_real_escape_string($conn, $_POST['nama']);
+        $bobot = mysqli_real_escape_string($conn, $_POST['bobot']);
+        $tipe = mysqli_real_escape_string($conn, $_POST['tipe']);
+      
+        $insertData = "INSERT INTO kriteria (`id_kriteria`,`nama_kriteria`, `bobot_kriteria`, `tipe_kriteria`) 
+                       VALUES (NULL, '$nama', '$bobot', '$tipe')";
+    
+        $insertResult = mysqli_query($conn, $insertData);
+    
+        if ($insertResult) {
+            echo "<script>alert('Berhasil menambah data kriteria.')</script>";
+            echo "<script>window.location.href = 'kriteria.php';</script>";
+            // Alternatively, you can use: echo "<script>location.reload();</script>";
+        } else {
+            echo "Error: " . mysqli_error($conn);
+        }
+    }
+    
+?>

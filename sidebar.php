@@ -16,6 +16,14 @@
                 <svg class="nav-icon">
                     <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-calculator"></use>
                 </svg> Handphone</a></li>
+        <li class="nav-item"><a class="nav-link" href="kriteria.php">
+                <svg class="nav-icon">
+                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-calculator"></use>
+                </svg> Kriteria</a></li>
+        <li class="nav-item"><a class="nav-link" href="hitung.php">
+                <svg class="nav-icon">
+                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-calculator"></use>
+                </svg> Hitung</a></li>
     </ul>
     <!-- <button class="sidebar-toggler" type="button" data-coreui-toggle="unfoldable"></button> -->
 </div>

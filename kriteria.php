@@ -22,7 +22,7 @@ if (!isset($_SESSION['id_users'])) {
     <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
     <meta name="author" content="Łukasz Holeczek">
     <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
-    <title>Handphone</title>
+    <title>Kriteria</title>
     <link rel="apple-touch-icon" sizes="57x57" href="assets/favicon/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="assets/favicon/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="assets/favicon/apple-icon-72x72.png">
@@ -59,47 +59,34 @@ if (!isset($_SESSION['id_users'])) {
                 <div class="row">
                 <div class="col-md-12">
               <div class="card mb-4">
-                <div class="card-header">Data Handphone</div>
+                <div class="card-header">Data Kriteria</div>
                 <div class="card-body">
                     <!-- <button class="mb-4">Tambah Data</button> -->
-                    <a href="tambah_data.php" class="btn btn-primary btn-user mb-4">Tambah Data</a>
+                    <a href="tambah_kriteria.php" class="btn btn-primary btn-user mb-4">Tambah Kriteria</a>
                 <table class="table table-bordered table-striped-columns">
                         <thead>
                             <th>No</th>
-                            <th>Merk</th>
-                            <th>Harga</th>
-                            <th>Daya Tahan</th>
-                            <th>Sistem</th>
-                            <th>Ram</th>
-                            <th>Tahun</th>
-                            <th>Memori</th>
+                            <th>Nama Kriteria</th>
+                            <th>Bobot</th>
+                            <th>Tipe Kriteria</th>
                         </thead>
                         <tbody>
                         <?php 
                 $no = 1;
-                $get_data = mysqli_query($conn, "select * from handphone");
+                $get_data = mysqli_query($conn, "select * from kriteria");
                 while($display = mysqli_fetch_array($get_data)) {
-                    $id = $display['id_handphone'];
-                    $merk = $display['merk'];
-                    $harga = $display['harga'];
-                    $daya = $display['daya_tahan'];
-                    $sistem = $display['sistem_operasi'];
-                    $ram = $display['ram'];
-                    $tahun = $display['tahun_launching'];
-                    $memori = $display['memori_internal'];
-
+                    $id = $display['id_kriteria'];
+                    $nama = $display['nama_kriteria'];
+                    $bobot = $display['bobot_kriteria'];
+                    $tipe = $display['tipe_kriteria'];
+                   
                 
                 ?>
                             <tr>
                                 <td><?php echo $no ?></td>
-                                <td><?php echo $merk ?></td>
-                                <td><?php echo $harga ?></td>
-                                <td><?php echo $daya . "mAH" ?></td>
-                                <td><?php echo $sistem ?></td>
-                                <td><?php echo $ram ?></td>
-                                <td><?php echo $tahun ?></td>
-                                <td><?php echo $memori ?></td>
-                                
+                                <td><?php echo $nama ?></td>
+                                <td><?php echo $bobot ?></td>
+                                <td><?php echo $tipe ?></td>
                             </tr>
                             <?php
               $no++;
@@ -112,6 +99,7 @@ if (!isset($_SESSION['id_users'])) {
                 </div>
                     
                 </div>
+                
                 <!-- /.row-->
                 <!-- /.card.mb-4-->
             </div>
