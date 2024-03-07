@@ -48,6 +48,8 @@ if (!isset($_SESSION['id_users'])) {
     <!-- We use those styles to show code examples, you should remove them in your application.-->
     <link href="css/examples.css" rel="stylesheet">
     <link href="vendors/@coreui/chartjs/css/coreui-chartjs.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+
 </head>
 
 <body>
@@ -63,12 +65,13 @@ if (!isset($_SESSION['id_users'])) {
                 <div class="card-body">
                     <!-- <button class="mb-4">Tambah Data</button> -->
                     <a href="tambah_kriteria.php" class="btn btn-primary btn-user mb-4">Tambah Kriteria</a>
-                <table class="table table-bordered table-striped-columns">
+                <table class="table table-bordered table-striped-columns" id="dataTable">
                         <thead>
                             <th>No</th>
                             <th>Nama Kriteria</th>
                             <th>Bobot</th>
                             <th>Tipe Kriteria</th>
+                            <th>Aksi</th>
                         </thead>
                         <tbody>
                         <?php 
@@ -87,6 +90,16 @@ if (!isset($_SESSION['id_users'])) {
                                 <td><?php echo $nama ?></td>
                                 <td><?php echo $bobot ?></td>
                                 <td><?php echo $tipe ?></td>
+                                <td>
+                                                <a href='edit_kriteria.php?GetID=<?php echo $id; ?>'
+                                                    style="text-decoration: none; list-style: none;"><input
+                                                        type='submit' value='Ubah' id='editbtn'
+                                                        class="btn btn-primary btn-user"></a>
+                                                <a href='delete_kriteria.php?Del=<?php echo $id; ?>'
+                                                    style="text-decoration: none; list-style: none;"><input
+                                                        type='submit' value='Hapus' id='delbtn'
+                                                        class="btn btn-primary btn-user"></a>
+                                            </td>
                             </tr>
                             <?php
               $no++;
@@ -114,8 +127,14 @@ if (!isset($_SESSION['id_users'])) {
     <script src="vendors/@coreui/chartjs/js/coreui-chartjs.js"></script>
     <script src="vendors/@coreui/utils/js/coreui-utils.js"></script>
     <script src="js/main.js"></script>
-    <script></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable();
+        });
+    </script>
 </body>
 
 </html>

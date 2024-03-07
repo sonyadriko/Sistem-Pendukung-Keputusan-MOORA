@@ -48,75 +48,85 @@ if (!isset($_SESSION['id_users'])) {
     <!-- We use those styles to show code examples, you should remove them in your application.-->
     <link href="css/examples.css" rel="stylesheet">
     <link href="vendors/@coreui/chartjs/css/coreui-chartjs.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 </head>
 
 <body>
-    <?php include 'sidebar.php' ?>
+    <?php include 'sidebar.php'; ?>
     <div class="wrapper d-flex flex-column min-vh-100 bg-light">
-        <?php include 'header.php' ?>
+        <?php include 'header.php'; ?>
         <div class="body flex-grow-1 px-3">
             <div class="container-lg">
                 <div class="row">
-                <div class="col-md-12">
-              <div class="card mb-4">
-                <div class="card-header">Data Handphone</div>
-                <div class="card-body">
-                    <!-- <button class="mb-4">Tambah Data</button> -->
-                    <a href="tambah_data.php" class="btn btn-primary btn-user mb-4">Tambah Data</a>
-                <table class="table table-bordered table-striped-columns">
-                        <thead>
-                            <th>No</th>
-                            <th>Merk</th>
-                            <th>Harga</th>
-                            <th>Daya Tahan</th>
-                            <th>Sistem</th>
-                            <th>Ram</th>
-                            <th>Tahun</th>
-                            <th>Memori</th>
-                        </thead>
-                        <tbody>
-                        <?php 
-                $no = 1;
-                $get_data = mysqli_query($conn, "select * from handphone");
-                while($display = mysqli_fetch_array($get_data)) {
-                    $id = $display['id_handphone'];
-                    $merk = $display['merk'];
-                    $harga = $display['harga'];
-                    $daya = $display['daya_tahan'];
-                    $sistem = $display['sistem_operasi'];
-                    $ram = $display['ram'];
-                    $tahun = $display['tahun_launching'];
-                    $memori = $display['memori_internal'];
+                    <div class="col-md-12">
+                        <div class="card mb-4">
+                            <div class="card-header">Data Handphone</div>
+                            <div class="card-body">
+                                <a href="tambah_data.php" class="btn btn-primary btn-user mb-4">Tambah
+                                    Data</a>
+                                <table class="table table-bordered table-striped-columns" id="dataTable">
+                                    <thead>
+                                        <th>No</th>
+                                        <th>Merk</th>
+                                        <th>Harga</th>
+                                        <th>Daya Tahan</th>
+                                        <th>Sistem</th>
+                                        <th>Ram</th>
+                                        <th>Tahun</th>
+                                        <th>Memori</th>
+                                        <th>Aksi</th>
+                                    </thead>
+                                    <tbody>
+                                        <?php 
+                                            $no = 1;
+                                            $get_data = mysqli_query($conn, "select * from handphone");
+                                            while($display = mysqli_fetch_array($get_data)) {
+                                                $id = $display['id_handphone'];
+                                                $merk = $display['merk'];
+                                                $harga = $display['harga'];
+                                                $daya = $display['daya_tahan'];
+                                                $sistem = $display['sistem_operasi'];
+                                                $ram = $display['ram'];
+                                                $tahun = $display['tahun_launching'];
+                                                $memori = $display['memori_internal'];
+                                            ?>
+                                        <tr>
+                                            <td><?php echo $no; ?></td>
+                                            <td><?php echo $merk; ?></td>
+                                            <td><?php echo $harga; ?></td>
+                                            <td><?php echo $daya . 'mAH'; ?></td>
+                                            <td><?php echo $sistem; ?></td>
+                                            <td><?php echo $ram; ?></td>
+                                            <td><?php echo $tahun; ?></td>
+                                            <td><?php echo $memori; ?></td>
+                                            <td>
+                                                <a href='edit_data.php?GetID=<?php echo $id; ?>'
+                                                    style="text-decoration: none; list-style: none;"><input
+                                                        type='submit' value='Ubah' id='editbtn'
+                                                        class="btn btn-primary btn-user"></a>
+                                                <a href='delete_data.php?Del=<?php echo $id; ?>'
+                                                    style="text-decoration: none; list-style: none;"><input
+                                                        type='submit' value='Hapus' id='delbtn'
+                                                        class="btn btn-primary btn-user"></a>
+                                            </td>
 
-                
-                ?>
-                            <tr>
-                                <td><?php echo $no ?></td>
-                                <td><?php echo $merk ?></td>
-                                <td><?php echo $harga ?></td>
-                                <td><?php echo $daya . "mAH" ?></td>
-                                <td><?php echo $sistem ?></td>
-                                <td><?php echo $ram ?></td>
-                                <td><?php echo $tahun ?></td>
-                                <td><?php echo $memori ?></td>
-                                
-                            </tr>
-                            <?php
-              $no++;
-                }
-              ?>
-                        </tbody>
-                    </table>
-                </div>
-              </div>
-                </div>
-                    
+                                        </tr>
+                                        <?php
+                                            $no++;
+                                                }
+                                            ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <!-- /.row-->
                 <!-- /.card.mb-4-->
             </div>
         </div>
-       <?php include 'footer.php' ?>
+        <?php include 'footer.php'; ?>
     </div>
     <!-- CoreUI and necessary plugins-->
     <script src="vendors/@coreui/coreui/js/coreui.bundle.min.js"></script>
@@ -126,7 +136,14 @@ if (!isset($_SESSION['id_users'])) {
     <script src="vendors/@coreui/chartjs/js/coreui-chartjs.js"></script>
     <script src="vendors/@coreui/utils/js/coreui-utils.js"></script>
     <script src="js/main.js"></script>
-    <script></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable();
+        });
+    </script>
 
 </body>
 
