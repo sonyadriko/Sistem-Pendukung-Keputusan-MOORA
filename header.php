@@ -18,7 +18,7 @@
                 <div class="dropdown-menu dropdown-menu-end pt-0">
                     <div class="dropdown-header bg-light py-2">
                         <div class="fw-semibold"><?php echo $_SESSION['nama']; ?></div>
-                    </div><a class="dropdown-item" href="#">
+                    </div><a class="dropdown-item" href="logout.php">
                         <svg class="icon me-2">
                             <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-account-logout"></use>
                         </svg> Logout</a>

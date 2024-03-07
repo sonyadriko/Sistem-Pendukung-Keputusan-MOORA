@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 07, 2024 at 06:54 AM
+-- Generation Time: Mar 07, 2024 at 02:14 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.17
 
@@ -45,7 +45,9 @@ CREATE TABLE `handphone` (
 INSERT INTO `handphone` (`id_handphone`, `merk`, `harga`, `daya_tahan`, `sistem_operasi`, `ram`, `tahun_launching`, `memori_internal`) VALUES
 (1, 'Vivo y12s', '1899000', '5000', 'Android 9.0 (Pie)', '3GB/4GB', '2020/2021', '32GB/64GB'),
 (2, 'Realme c15', '1999000', '6000', 'Android 10 (Q)', '3GB/4GB', '2020/2021', '32GB/64GB'),
-(3, 'Xiaomi Note 8', '1300000', '4000', 'Android 9.0 (Pie)', '3GB/4GB', '2018/2019', '32GB/64GB');
+(3, 'Xiaomi Note 8', '1300000', '4000', 'Android 9.0 (Pie)', '3GB/4GB', '2018/2019', '32GB/64GB'),
+(5, 'Oppo a15', '2000000', '4230', 'Android 10 (Q)', '2GB/3GB', '2020/2021', '32GB/64GB'),
+(6, 'Samsung Galaxy A24', '3000000', '5000', 'Android 12', '8GB/12GB', '2022/2023', '128GB/256GB');
 
 -- --------------------------------------------------------
 
@@ -122,7 +124,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `handphone`
 --
 ALTER TABLE `handphone`
-  MODIFY `id_handphone` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_handphone` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `kriteria`

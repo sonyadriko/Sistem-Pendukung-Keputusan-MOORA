@@ -515,17 +515,25 @@ if (!isset($_SESSION['id_users'])) {
                                     <tbody>
                                         <?php
                                         $no = 1;
+
+                                        $bobot_kriteria = [];
+
+                                        $q = mysqli_query($conn, "SELECT bobot_kriteria FROM kriteria ORDER BY id_kriteria");
+                                        while($row = mysqli_fetch_assoc($q)) {
+                                            $bobot_kriteria[] = floatval($row['bobot_kriteria']); // Cast to float to ensure the values are numerical
+                                        }
+
                                     foreach ($normalizedValues as $data) {
                                                     
                                                     echo '<tr>';
                                                     echo '<td class="text-truncate">' . $no . '</td>';
                                                     echo '<td class="text-truncate">' . $data['merk'] . '</td>';
-                                                    echo '<td class="text-truncate">' . ($data['n1'] * 30) . '</td>';
-                                                    echo '<td class="text-truncate">' . ($data['n2'] * 15) . '</td>';
-                                                    echo '<td class="text-truncate">' . ($data['n3'] * 20) . '</td>';
-                                                    echo '<td class="text-truncate">' . ($data['n4'] * 15) . '</td>';
-                                                    echo '<td class="text-truncate">' . ($data['n5'] * 5) . '</td>';
-                                                    echo '<td class="text-truncate">' . ($data['n6'] * 15) . '</td>';
+                                                    echo '<td class="text-truncate">' . ($data['n1'] * $bobot_kriteria[0]) . '</td>';
+                                                    echo '<td class="text-truncate">' . ($data['n2'] * $bobot_kriteria[1]) . '</td>';
+                                                    echo '<td class="text-truncate">' . ($data['n3'] * $bobot_kriteria[2]) . '</td>';
+                                                    echo '<td class="text-truncate">' . ($data['n4'] * $bobot_kriteria[3]) . '</td>';
+                                                    echo '<td class="text-truncate">' . ($data['n5'] * $bobot_kriteria[4]) . '</td>';
+                                                    echo '<td class="text-truncate">' . ($data['n6'] * $bobot_kriteria[5]) . '</td>';
                                                     echo '</tr>';
                                                     $no++; // Increment $no here
                                                     
