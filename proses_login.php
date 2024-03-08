@@ -23,7 +23,7 @@
                 $_SESSION['id_users'] = $row['id_users'];
                 $_SESSION['nama'] = $row['nama'];
                 $_SESSION['email'] = $row['email'];
-                // $_SESSION['role'] = $row['role'];
+                $_SESSION['role'] = $row['role'];
 
                 echo "<script>alert('Login Berhasil');</script>";
                 echo "<script>location='index.php';</script>";
