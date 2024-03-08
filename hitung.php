@@ -5,13 +5,7 @@ if (!isset($_SESSION['id_users'])) {
     header('Location: login.php');
 }
 ?>
-<!DOCTYPE html><!--
-* CoreUI - Free Bootstrap Admin Template
-* @version v4.2.2
-* @link https://coreui.io/product/free-bootstrap-admin-template/
-* Copyright (c) 2023 creativeLabs Łukasz Holeczek
-* Licensed under MIT (https://github.com/coreui/coreui-free-bootstrap-admin-template/blob/main/LICENSE)
---><!-- Breadcrumb-->
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -319,14 +313,6 @@ if (!isset($_SESSION['id_users'])) {
                     // echo $sum_of_squares_memori . '<br>';
                 }
                 
-                // Tampilkan sum of squares
-                //   echo "Sum of Squares for Harga: " . $sum_of_squares_harga . "<br>";
-                //   echo "Sum of Squares for Daya: " . $sum_of_squares_daya . "<br>";
-                //   echo "Sum of Squares for Sistem: " . $sum_of_squares_sistem . "<br>";
-                //   echo "Sum of Squares for RAM: " . $sum_of_squares_ram . "<br>";
-                //   echo "Sum of Squares for Tahun: " . $sum_of_squares_tahun . "<br>";
-                //   echo "Sum of Squares for Memori: " . $sum_of_squares_memori . "<br>";
-                
                 // Hitung panjang vektor untuk masing-masing kriteria
                 $panjang_vektor_harga = sqrt($sum_of_squares_harga);
                 $panjang_vektor_daya = sqrt($sum_of_squares_daya);
@@ -515,30 +501,28 @@ if (!isset($_SESSION['id_users'])) {
                                     <tbody>
                                         <?php
                                         $no = 1;
-
+                                        
                                         $bobot_kriteria = [];
-
-                                        $q = mysqli_query($conn, "SELECT bobot_kriteria FROM kriteria ORDER BY id_kriteria");
-                                        while($row = mysqli_fetch_assoc($q)) {
+                                        
+                                        $q = mysqli_query($conn, 'SELECT bobot_kriteria FROM kriteria ORDER BY id_kriteria');
+                                        while ($row = mysqli_fetch_assoc($q)) {
                                             $bobot_kriteria[] = floatval($row['bobot_kriteria']); // Cast to float to ensure the values are numerical
                                         }
-
-                                    foreach ($normalizedValues as $data) {
-                                                    
-                                                    echo '<tr>';
-                                                    echo '<td class="text-truncate">' . $no . '</td>';
-                                                    echo '<td class="text-truncate">' . $data['merk'] . '</td>';
-                                                    echo '<td class="text-truncate">' . ($data['n1'] * $bobot_kriteria[0]) . '</td>';
-                                                    echo '<td class="text-truncate">' . ($data['n2'] * $bobot_kriteria[1]) . '</td>';
-                                                    echo '<td class="text-truncate">' . ($data['n3'] * $bobot_kriteria[2]) . '</td>';
-                                                    echo '<td class="text-truncate">' . ($data['n4'] * $bobot_kriteria[3]) . '</td>';
-                                                    echo '<td class="text-truncate">' . ($data['n5'] * $bobot_kriteria[4]) . '</td>';
-                                                    echo '<td class="text-truncate">' . ($data['n6'] * $bobot_kriteria[5]) . '</td>';
-                                                    echo '</tr>';
-                                                    $no++; // Increment $no here
-                                                    
-                                    }
-                                 ?>
+                                        
+                                        foreach ($normalizedValues as $data) {
+                                            echo '<tr>';
+                                            echo '<td class="text-truncate">' . $no . '</td>';
+                                            echo '<td class="text-truncate">' . $data['merk'] . '</td>';
+                                            echo '<td class="text-truncate">' . $data['n1'] * $bobot_kriteria[0] . '</td>';
+                                            echo '<td class="text-truncate">' . $data['n2'] * $bobot_kriteria[1] . '</td>';
+                                            echo '<td class="text-truncate">' . $data['n3'] * $bobot_kriteria[2] . '</td>';
+                                            echo '<td class="text-truncate">' . $data['n4'] * $bobot_kriteria[3] . '</td>';
+                                            echo '<td class="text-truncate">' . $data['n5'] * $bobot_kriteria[4] . '</td>';
+                                            echo '<td class="text-truncate">' . $data['n6'] * $bobot_kriteria[5] . '</td>';
+                                            echo '</tr>';
+                                            $no++; // Increment $no here
+                                        }
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -547,58 +531,73 @@ if (!isset($_SESSION['id_users'])) {
                 </div>
 
                 <div class="row mt-4">
-    <div class="col-md-12">
-        <div class="card mb-4">
-            <div class="card-header">Tabel Nilai Optimasi</div>
-            <div class="card-body">
-                <table class="table table-bordered table-striped-columns">
-                    <thead>
-                        <th>No</th>
-                        <th>Merk</th>
-                        <th>Total</th>
-                        <th>Ranking</th>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $rankedData = array();
+                    <div class="col-md-12">
+                        <div class="card mb-4">
+                            <div class="card-header">Tabel Nilai Optimasi</div>
+                            <div class="card-body">
+                                <table class="table table-bordered table-striped-columns">
+                                    <thead>
+                                        <th>No</th>
+                                        <th>Merk</th>
+                                        <th>Total</th>
+                                        <th>Ranking</th>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $rankedData = [];
+                                        
+                                        foreach ($normalizedValues as $data) {
+                                            $total = $data['n1'] * $bobot_kriteria[0] + $data['n2'] * $bobot_kriteria[1] + $data['n3'] * $bobot_kriteria[2] + $data['n4'] * $bobot_kriteria[3] + $data['n5'] * $bobot_kriteria[4] + $data['n6'] * $bobot_kriteria[5];
+                                        
+                                            $rankedData[] = [
+                                                'merk' => $data['merk'],
+                                                'total' => $total,
+                                            ];
+                                        }
+                                        
+                                        // Sorting array based on 'total' in descending order
+                                        usort($rankedData, function ($a, $b) {
+                                            return $b['total'] <=> $a['total'];
+                                        });
+                                        
+                                        $alternatif_nilai_akhir_encoded = [];
+                                        
+                                        $rank = 1;
+                                        foreach ($rankedData as $ranked) {
+                                            echo '<tr>';
+                                            echo '<td class="text-truncate">' . $rank . '</td>';
+                                            echo '<td class="text-truncate">' . $ranked['merk'] . '</td>';
+                                            echo '<td class="text-truncate">' . $ranked['total'] . '</td>';
+                                            echo '<td class="text-truncate">' . $rank . '</td>';
+                                            echo '</tr>';
+                                            $rank++;
+                                        
+                                            $item = [
+                                                'nama' => $ranked['merk'],
+                                                'nilai_akhir' => $ranked['total'],
+                                                'ranking' => $rank - 1,
+                                            ];
 
-                        foreach ($normalizedValues as $data) {
-                            $total = ($data['n1'] * 30) +
-                                ($data['n2'] * 15) +
-                                ($data['n3'] * 20) +
-                                ($data['n4'] * 15) +
-                                ($data['n5'] * 5) +
-                                ($data['n6'] * 15);
+                                            $alternatif_nilai_akhir_encoded[] = $item;
+                                        }
+                                        
+                                        // Convert the array to JSON
+                                        $alternatif_nilai_akhir_json = json_encode($alternatif_nilai_akhir_encoded);
+                                        // echo $alternatif_nilai_akhir_json;
+                                        // console.log($alternatif_nilai_akhir_json);
+                                        ?>
+                                    </tbody>
+                                </table>
+                                <script>
+                                    var hasilhitungjson = <?php echo json_encode($alternatif_nilai_akhir_encoded); ?>;
+                                    console.log(hasilhitungjson);
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                            $rankedData[] = array(
-                                'merk' => $data['merk'],
-                                'total' => $total
-                            );
-                        }
-
-                        // Sorting array based on 'total' in descending order
-                        usort($rankedData, function ($a, $b) {
-                            return $b['total'] <=> $a['total'];
-                        });
-
-                        $rank = 1;
-                        foreach ($rankedData as $ranked) {
-                            echo '<tr>';
-                            echo '<td class="text-truncate">' . $rank . '</td>';
-                            echo '<td class="text-truncate">' . $ranked['merk'] . '</td>';
-                            echo '<td class="text-truncate">' . $ranked['total'] . '</td>';
-                            echo '<td class="text-truncate">' . $rank . '</td>';
-                            echo '</tr>';
-                            $rank++;
-                        }
-                        ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-
+                <button id="saveButton" class="btn btn-success mb-4" onclick="saveData()">Save</button>
 
 
 
@@ -610,11 +609,98 @@ if (!isset($_SESSION['id_users'])) {
     <script src="vendors/@coreui/coreui/js/coreui.bundle.min.js"></script>
     <script src="vendors/simplebar/js/simplebar.min.js"></script>
     <!-- Plugins and scripts required by this view-->
-    <script src="vendors/chart.js/js/chart.min.js"></script>
-    <script src="vendors/@coreui/chartjs/js/coreui-chartjs.js"></script>
-    <script src="vendors/@coreui/utils/js/coreui-utils.js"></script>
     <script src="js/main.js"></script>
-    <script></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var hasilhitung = [];
+        const saveButton = document.getElementById('saveButton');
+        if (saveButton) {
+            console.log('Button Disabled:', saveButton.disabled);
+        }
+
+        document.addEventListener("submit", function (event) {
+            event.preventDefault();
+            saveData(); //Pass hasilhitung
+        });
+
+    });
+
+    async function saveData() {
+        const date = new Date();
+        date.setUTCHours(date.getUTCHours() + 7);
+        var data = {
+            tanggal: date
+        };
+        try {
+            const response = await fetch('save_data.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response wasn\'t ok');
+            }
+
+            const textData = await response.text();
+            console.log('Data hasil dari server: ', textData);
+
+            if (textData.trim() == '') {
+                console.error('Empty response from server.');
+                return;
+            }
+
+            const parsedData = JSON.parse(textData);
+            console.log('Data hasil berhasil di-parse:', parsedData);
+
+            var hasilhitung = hasilhitungjson || [];
+            document.getElementById('saveButton').disabled = true;
+            saveDataDetail(parsedData.last_id, hasilhitung);
+
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    function saveDataDetail(idHasil, hasilhitung) {
+        var detailDataArray = [];
+
+        hasilhitung.forEach(rule => {
+            var detailData = {
+                id_hasil: idHasil,
+                nama_alternatif: rule.nama,
+                number: rule.nilai_akhir,
+                rank: rule.ranking,
+            };
+            detailDataArray.push(detailData);
+
+        })
+        console.log(detailDataArray);
+
+        fetch('save_data_detail.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                detailDataArray
+            }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Data detail hasil successfully saved:', data);
+                setTimeout(function () {
+                    document.getElementById('saveButton').disabled = true;
+                }, 100);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            })
+    }
+</script>
+
 
 </body>
 
