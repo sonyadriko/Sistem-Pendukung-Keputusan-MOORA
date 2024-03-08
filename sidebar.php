@@ -25,6 +25,10 @@
                 <svg class="nav-icon">
                     <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-calculator"></use>
                 </svg> Hitung</a></li>
+        <li class="nav-item"><a class="nav-link" href="history.php">
+                <svg class="nav-icon">
+                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-calculator"></use>
+                </svg> History</a></li>
     </ul>
     <!-- <button class="sidebar-toggler" type="button" data-coreui-toggle="unfoldable"></button> -->
 </div>
