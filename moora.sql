@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 07, 2024 at 02:14 PM
+-- Generation Time: Mar 08, 2024 at 09:28 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.17
 
@@ -20,6 +20,31 @@ SET time_zone = "+00:00";
 --
 -- Database: `moora`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `detail_hasil`
+--
+
+CREATE TABLE `detail_hasil` (
+  `id_detail_hasil` int(11) NOT NULL,
+  `id_hasil` int(11) NOT NULL,
+  `nama_alternatif` varchar(255) NOT NULL,
+  `hasil_akhir` double NOT NULL,
+  `ranking` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `detail_hasil`
+--
+
+INSERT INTO `detail_hasil` (`id_detail_hasil`, `id_hasil`, `nama_alternatif`, `hasil_akhir`, `ranking`) VALUES
+(6, 5, 'Xiaomi Note 8', 55.523638381196, 1),
+(7, 5, 'Vivo y12s', 49.083142821834, 2),
+(8, 5, 'Oppo a15', 44.361213904246, 3),
+(9, 5, 'Realme c15', 42.863765359989, 4),
+(10, 5, 'Samsung Galaxy A24', 19.751030624804, 5);
 
 -- --------------------------------------------------------
 
@@ -48,6 +73,24 @@ INSERT INTO `handphone` (`id_handphone`, `merk`, `harga`, `daya_tahan`, `sistem_
 (3, 'Xiaomi Note 8', '1300000', '4000', 'Android 9.0 (Pie)', '3GB/4GB', '2018/2019', '32GB/64GB'),
 (5, 'Oppo a15', '2000000', '4230', 'Android 10 (Q)', '2GB/3GB', '2020/2021', '32GB/64GB'),
 (6, 'Samsung Galaxy A24', '3000000', '5000', 'Android 12', '8GB/12GB', '2022/2023', '128GB/256GB');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hasil`
+--
+
+CREATE TABLE `hasil` (
+  `id_hasil` int(11) NOT NULL,
+  `tanggal` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `hasil`
+--
+
+INSERT INTO `hasil` (`id_hasil`, `tanggal`) VALUES
+(5, '2024-03-08 15:07:56');
 
 -- --------------------------------------------------------
 
@@ -84,25 +127,39 @@ CREATE TABLE `users` (
   `id_users` int(11) NOT NULL,
   `nama` varchar(255) NOT NULL,
   `username` varchar(16) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `role` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id_users`, `nama`, `username`, `password`) VALUES
-(1, 'Admin', 'admin', '21232f297a57a5a743894a0e4a801fc3');
+INSERT INTO `users` (`id_users`, `nama`, `username`, `password`, `role`) VALUES
+(1, 'Admin', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin'),
+(2, 'Kepala Toko', 'keptok', '4719eb3ba1367894ab3194a678b77a0d', 'kepala toko');
 
 --
 -- Indexes for dumped tables
 --
 
 --
+-- Indexes for table `detail_hasil`
+--
+ALTER TABLE `detail_hasil`
+  ADD PRIMARY KEY (`id_detail_hasil`);
+
+--
 -- Indexes for table `handphone`
 --
 ALTER TABLE `handphone`
   ADD PRIMARY KEY (`id_handphone`);
+
+--
+-- Indexes for table `hasil`
+--
+ALTER TABLE `hasil`
+  ADD PRIMARY KEY (`id_hasil`);
 
 --
 -- Indexes for table `kriteria`
@@ -121,10 +178,22 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `detail_hasil`
+--
+ALTER TABLE `detail_hasil`
+  MODIFY `id_detail_hasil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
 -- AUTO_INCREMENT for table `handphone`
 --
 ALTER TABLE `handphone`
   MODIFY `id_handphone` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `hasil`
+--
+ALTER TABLE `hasil`
+  MODIFY `id_hasil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `kriteria`
@@ -136,7 +205,7 @@ ALTER TABLE `kriteria`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_users` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_users` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
