@@ -4,7 +4,78 @@ session_start();
 if (!isset($_SESSION['id_users'])) {
     header('Location: login.php');
 }
+
+
+include 'koneksi.php';
+
+require 'vendor/autoload.php'; // Make sure this path is correct
+
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Row;
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['import'])) {
+        // Process the uploaded Excel file for import
+        if (isset($_FILES['excelFile']) && $_FILES['excelFile']['error'] == UPLOAD_ERR_OK) {
+            $excelFile = $_FILES['excelFile']['tmp_name'];
+
+            // Load the Excel file
+            $spreadsheet = IOFactory::load($excelFile);
+
+            // Get the active sheet
+            $worksheet = $spreadsheet->getActiveSheet();
+
+            // Prepare the statement for inserting data into the 'handphone' table
+            $stmtInsert = $conn->prepare('INSERT INTO handphone (merk, harga, daya_tahan, sistem_operasi, ram, tahun_launching, memori_internal) VALUES (?, ?, ?, ?, ?, ?, ?)');
+
+            // Iterate through rows and insert data into the 'handphone' table
+            foreach ($worksheet->getRowIterator() as $row) {
+                $rowData = [];
+                foreach ($row->getCellIterator() as $cell) {
+                    $rowData[] = $cell->getValue();
+                }
+
+                // Assuming the Excel columns are in the order specified
+                if (count($rowData) == 7) {
+                    // Extracting values
+                    $merk = $rowData[0];
+                    $harga = parseHarga($rowData[1]);
+                    $daya_tahan = parseDayaTahan($rowData[2]);
+                    $sistem_operasi = $rowData[3];
+                    $ram = $rowData[4];
+                    $tahun_launching = $rowData[5];
+                    $memori_internal = $rowData[6];
+
+                    // Insert data into the 'handphone' table
+                    $stmtInsert->bind_param('sssssss', $merk, $harga, $daya_tahan, $sistem_operasi, $ram, $tahun_launching, $memori_internal);
+                    $stmtInsert->execute();
+                }
+            }
+
+            echo '<script>alert("Import successful!");</script>';
+        } else {
+            echo '<script>alert("Error uploading the file.");</script>';
+        }
+    }
+}
+
+// Helper function to parse harga
+function parseHarga($hargaString)
+{
+    $harga = (float)filter_var($hargaString, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+    return $harga;
+}
+
+// Helper function to parse daya tahan
+function parseDayaTahan($dayaTahanString)
+{
+    $dayaTahan = (int)filter_var($dayaTahanString, FILTER_SANITIZE_NUMBER_INT);
+    return $dayaTahan;
+}
 ?>
+
+
 <!DOCTYPE html><!--
 * CoreUI - Free Bootstrap Admin Template
 * @version v4.2.2
@@ -60,24 +131,45 @@ if (!isset($_SESSION['id_users'])) {
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card mb-4">
+                            <div class="card-header">Upload Excel File</div>
+                            <div class="card-body">
+                                <form action="process_upload.php" method="post" enctype="multipart/form-data">
+                                <!-- <form action="data.php" method="post" enctype="multipart/form-data"> -->
+                                    <div class="mb-3">
+                                        <label for="excelFile" class="form-label">Choose Excel File</label>
+                                        <input type="file" class="form-control" id="excelFile" name="excelFile"
+                                            accept=".xls, .xlsx" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Upload</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-lg">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card mb-4">
                             <div class="card-header">Data Handphone</div>
                             <div class="card-body">
                                 <a href="tambah_data.php" class="btn btn-primary btn-user mb-4">Tambah
                                     Data</a>
-                                <table class="table table-bordered table-striped-columns" id="dataTable">
-                                    <thead>
-                                        <th>No</th>
-                                        <th>Merk</th>
-                                        <th>Harga</th>
-                                        <th>Daya Tahan</th>
-                                        <th>Sistem</th>
-                                        <th>Ram</th>
-                                        <th>Tahun</th>
-                                        <th>Memori</th>
-                                        <th>Aksi</th>
-                                    </thead>
-                                    <tbody>
-                                        <?php 
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped-columns" id="dataTable">
+                                        <thead>
+                                            <th>No</th>
+                                            <th>Merk</th>
+                                            <th>Harga</th>
+                                            <th>Daya Tahan</th>
+                                            <th>Sistem</th>
+                                            <th>Ram</th>
+                                            <th>Tahun</th>
+                                            <th>Memori</th>
+                                            <th>Aksi</th>
+                                        </thead>
+                                        <tbody>
+                                            <?php 
                                             $no = 1;
                                             $get_data = mysqli_query($conn, "select * from handphone");
                                             while($display = mysqli_fetch_array($get_data)) {
@@ -90,33 +182,34 @@ if (!isset($_SESSION['id_users'])) {
                                                 $tahun = $display['tahun_launching'];
                                                 $memori = $display['memori_internal'];
                                             ?>
-                                        <tr>
-                                            <td><?php echo $no; ?></td>
-                                            <td><?php echo $merk; ?></td>
-                                            <td><?php echo $harga; ?></td>
-                                            <td><?php echo $daya . 'mAH'; ?></td>
-                                            <td><?php echo $sistem; ?></td>
-                                            <td><?php echo $ram; ?></td>
-                                            <td><?php echo $tahun; ?></td>
-                                            <td><?php echo $memori; ?></td>
-                                            <td>
-                                                <a href='edit_data.php?GetID=<?php echo $id; ?>'
-                                                    style="text-decoration: none; list-style: none;"><input
-                                                        type='submit' value='Ubah' id='editbtn'
-                                                        class="btn btn-primary btn-user"></a>
-                                                <a href='delete_data.php?Del=<?php echo $id; ?>'
-                                                    style="text-decoration: none; list-style: none;"><input
-                                                        type='submit' value='Hapus' id='delbtn'
-                                                        class="btn btn-primary btn-user"></a>
-                                            </td>
+                                            <tr>
+                                                <td><?php echo $no; ?></td>
+                                                <td><?php echo $merk; ?></td>
+                                                <td><?php echo $harga; ?></td>
+                                                <td><?php echo $daya . 'mAH'; ?></td>
+                                                <td><?php echo $sistem; ?></td>
+                                                <td><?php echo $ram; ?></td>
+                                                <td><?php echo $tahun; ?></td>
+                                                <td><?php echo $memori; ?></td>
+                                                <td>
+                                                    <a href='edit_data.php?GetID=<?php echo $id; ?>'
+                                                        style="text-decoration: none; list-style: none;"><input
+                                                            type='submit' value='Ubah' id='editbtn'
+                                                            class="btn btn-primary btn-user"></a>
+                                                    <a href='delete_data.php?Del=<?php echo $id; ?>'
+                                                        style="text-decoration: none; list-style: none;"><input
+                                                            type='submit' value='Hapus' id='delbtn'
+                                                            class="btn btn-primary btn-user"></a>
+                                                </td>
 
-                                        </tr>
-                                        <?php
+                                            </tr>
+                                            <?php
                                             $no++;
                                                 }
                                             ?>
-                                    </tbody>
-                                </table>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -81,7 +81,9 @@ if (!isset($_SESSION['id_users'])) {
                 ?>
                             <tr>
                                 <td><?php echo $id ?></td>
-                                <td><?php echo $tanggal ?></td>
+                                <!-- <td><?php echo $tanggal ?></td> -->
+                                <td><?php echo (new DateTime($tanggal))->format('d-m-Y H:i:s'); ?></td>
+
                                 <td>
                                                 <a href='detail_history.php?GetID=<?php echo $id; ?>'
                                                     style="text-decoration: none; list-style: none;"><input
