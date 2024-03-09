@@ -53,13 +53,13 @@ if (!isset($_SESSION['id_users'])) {
 </head>
 
 <body>
-<!-- <div class="print-sidebar"> -->
+<div class="sidebar no-print">
 <?php include 'sidebar.php' ?>
-<!-- </div> -->
+</div>
     <div class="wrapper d-flex flex-column min-vh-100 bg-light">
-    <!-- <div class="print-header"> -->
+    <div class="print-header no-print">
         <?php include 'header.php' ?>
-    <!-- </div> -->
+    </div>
         <div class="body flex-grow-1 px-3">
             <div class="container-lg">
                 <div class="row">
@@ -113,10 +113,10 @@ if (!isset($_SESSION['id_users'])) {
                 <!-- /.card.mb-4-->
             </div>
         </div>
-        <!-- <div class="print-footer"> -->
+        <div class="print-footer no-print">
 
        <?php include 'footer.php' ?>
-<!-- </div> -->
+</div>
     </div>
     <!-- CoreUI and necessary plugins-->
     <script src="vendors/@coreui/coreui/js/coreui.bundle.min.js"></script>
@@ -131,7 +131,8 @@ if (!isset($_SESSION['id_users'])) {
 
     <script>
        function printIn(){
-        window.print();
+        var id_hasil = '<?php echo $_GET["GetID"]; ?>';
+        window.open('print_halaman.php?GetID=' + id_hasil, '_blank');
        }
     </script>
 
@@ -155,13 +156,17 @@ if (!isset($_SESSION['id_users'])) {
         padding: 0;
     }
 
-    .print-header,
-    .print-sidebar,
-    .print-footer {
-        display: block !important;
-    }
-
     .no-print {
         display: none !important;
     }
+
+    /* .print-header,
+    .print-sidebar,
+    .print-footer {
+        display: block !important;
+    } */
+
+    /* .no-print {
+        display: none !important;
+    } */
 </style>
