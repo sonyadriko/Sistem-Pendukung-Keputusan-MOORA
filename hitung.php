@@ -55,6 +55,7 @@ if (!isset($_SESSION['id_users'])) {
                         <div class="card mb-4">
                             <div class="card-header">Tabel Hasil Konversi</div>
                             <div class="card-body">
+                            <div class="table-responsive">
                                 <!-- <button class="mb-4">Tambah Data</button> -->
                                 <!-- <a href="tambah_kriteria.php" class="btn btn-primary btn-user mb-4">Tambah Kriteria</a> -->
                                 <table class="table table-bordered table-striped-columns">
@@ -172,6 +173,7 @@ if (!isset($_SESSION['id_users'])) {
                                             ?>
                                     </tbody>
                                 </table>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -335,6 +337,7 @@ if (!isset($_SESSION['id_users'])) {
                         <div class="card mb-4">
                             <div class="card-header">Tabel Nilai Normalisasi</div>
                             <div class="card-body">
+                            <div class="table-responsive">
                                 <table class="table table-bordered table-striped-columns">
                                     <thead>
                                         <th>No</th>
@@ -477,6 +480,7 @@ if (!isset($_SESSION['id_users'])) {
                                     </tbody>
                                 </table>
                             </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -487,6 +491,7 @@ if (!isset($_SESSION['id_users'])) {
                         <div class="card mb-4">
                             <div class="card-header">Tabel Nilai Optimasi</div>
                             <div class="card-body">
+                            <div class="table-responsive">
                                 <table class="table table-bordered table-striped-columns">
                                     <thead>
                                         <th>No</th>
@@ -525,6 +530,7 @@ if (!isset($_SESSION['id_users'])) {
                                         ?>
                                     </tbody>
                                 </table>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -597,7 +603,7 @@ if (!isset($_SESSION['id_users'])) {
                     </div>
                 </div>
 
-                <button id="saveButton" class="btn btn-success mb-4" onclick="saveData()">Save</button>
+                <button id="saveButton" style="color: white;" class="btn btn-success mb-4" onclick="saveData()">Save</button>
 
 
 
