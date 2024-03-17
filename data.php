@@ -5,7 +5,6 @@ if (!isset($_SESSION['id_users'])) {
     header('Location: login.php');
 }
 
-
 include 'koneksi.php';
 
 require 'vendor/autoload.php'; // Make sure this path is correct
@@ -63,14 +62,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Helper function to parse harga
 function parseHarga($hargaString)
 {
-    $harga = (float)filter_var($hargaString, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+    $harga = (float) filter_var($hargaString, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     return $harga;
 }
 
 // Helper function to parse daya tahan
 function parseDayaTahan($dayaTahanString)
 {
-    $dayaTahan = (int)filter_var($dayaTahanString, FILTER_SANITIZE_NUMBER_INT);
+    $dayaTahan = (int) filter_var($dayaTahanString, FILTER_SANITIZE_NUMBER_INT);
     return $dayaTahan;
 }
 ?>
@@ -134,7 +133,7 @@ function parseDayaTahan($dayaTahanString)
                             <div class="card-header">Upload Excel File</div>
                             <div class="card-body">
                                 <form action="process_upload.php" method="post" enctype="multipart/form-data">
-                                <!-- <form action="data.php" method="post" enctype="multipart/form-data"> -->
+                                    <!-- <form action="data.php" method="post" enctype="multipart/form-data"> -->
                                     <div class="mb-3">
                                         <label for="excelFile" class="form-label">Choose Excel File</label>
                                         <input type="file" class="form-control" id="excelFile" name="excelFile"
@@ -218,6 +217,20 @@ function parseDayaTahan($dayaTahanString)
                 <!-- /.row-->
                 <!-- /.card.mb-4-->
             </div>
+            <div class="container-lg">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card mb-4">
+                            <div class="card-header">Delete All Data</div>
+                            <div class="card-body">
+                                <!-- <button type="submit" class="btn btn-danger" style="color: white;">Delete</button> -->
+                                <button type="button" class="btn btn-danger" style="color: white;"
+                                    onclick="confirmDelete()">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <?php include 'footer.php'; ?>
     </div>
@@ -231,11 +244,55 @@ function parseDayaTahan($dayaTahanString)
     <script src="js/main.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#dataTable').DataTable();
         });
+
+        function confirmDelete() {
+            // Tampilkan kotak dialog konfirmasi SweetAlert
+            swal({
+                    title: "Are you sure?",
+                    text: "Once deleted, you will not be able to recover this data!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        // Jika pengguna menekan tombol "OK", kirim permintaan hapus ke server
+                        deleteData();
+                    } else {
+                        // Jika pengguna menekan tombol "Cancel", tampilkan pesan bahwa penghapusan dibatalkan
+                        swal("Your data is safe!", {
+                            icon: "info",
+                        });
+                    }
+                });
+        }
+
+        function deleteData() {
+            // Membuat permintaan HTTP ke server untuk menghapus semua data
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "delete_all_data.php", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // Menghapus semua data pada tabel setelah berhasil dihapus dari server
+                    // document.getElementById("handphoneTable").innerHTML = "";
+                    // Tampilkan pesan sukses menggunakan SweetAlert
+                    swal("Success!", "All data has been deleted.", "success")
+                    .then(() => {
+                        // Memuat ulang halaman setelah tombol "OK" ditekan
+                        window.location.reload();
+                    });
+                } else if (xhr.readyState === 4 && xhr.status !== 200) {
+                    // Tampilkan pesan gagal jika terjadi kesalahan pada server
+                    swal("Error!", "Failed to delete data.", "error");
+                }
+            };
+            xhr.send();
+        }
     </script>
 
 </body>

@@ -4,6 +4,9 @@ session_start();
 if (!isset($_SESSION['id_users'])) {
     header('Location: login.php');
 }
+$get_data = mysqli_query($conn, "SELECT COUNT(*) AS total FROM handphone");
+$row = mysqli_fetch_assoc($get_data);
+$totalData = $row['total'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,6 +52,7 @@ if (!isset($_SESSION['id_users'])) {
     <div class="wrapper d-flex flex-column min-vh-100 bg-light">
         <?php include 'header.php'; ?>
         <div class="body flex-grow-1 px-3">
+            <?php if ($totalData > 0) { ?>
             <div class="container-lg">
                 <div class="row">
                     <div class="col-md-12">
@@ -128,15 +132,15 @@ if (!isset($_SESSION['id_users'])) {
                                             }
                                             echo $value_sistem;
                                             ?></td>
-                                            <td><?php if ($ram == '2GB/3GB') {
+                                            <td><?php if ($ram == '2GB') {
                                                 $value_ram = '5';
-                                            } elseif ($ram == '3GB/4GB') {
+                                            } elseif ($ram == '3GB') {
                                                 $value_ram = '4';
-                                            } elseif ($ram == '4GB/6GB') {
+                                            } elseif ($ram == '4GB') {
                                                 $value_ram = '3';
-                                            } elseif ($ram == '6GB/8GB') {
+                                            } elseif ($ram == '6GB') {
                                                 $value_ram = '2';
-                                            } elseif ($ram == '8GB/12GB') {
+                                            } elseif ($ram == '8GB') {
                                                 $value_ram = '1';
                                             }
                                             echo $value_ram;
@@ -154,15 +158,15 @@ if (!isset($_SESSION['id_users'])) {
                                             }
                                             echo $value_tahun;
                                             ?></td>
-                                            <td><?php if ($memori == '16GB/32GB') {
+                                            <td><?php if ($memori == '16GB') {
                                                 $value_memori = '5';
-                                            } elseif ($memori == '32GB/64GB') {
+                                            } elseif ($memori == '32GB') {
                                                 $value_memori = '4';
-                                            } elseif ($memori == '64GB/128GB') {
+                                            } elseif ($memori == '64GB') {
                                                 $value_memori = '3';
-                                            } elseif ($memori == '128GB/256GB') {
+                                            } elseif ($memori == '128GB') {
                                                 $value_memori = '2';
-                                            } elseif ($memori == '256GB/512GB') {
+                                            } elseif ($memori == '256GB') {
                                                 $value_memori = '1';
                                             }
                                             echo $value_memori; ?></td>
@@ -268,15 +272,15 @@ if (!isset($_SESSION['id_users'])) {
                 }
                 
                 foreach ($data_ram as $ram) {
-                    if ($ram == '2GB/3GB') {
+                    if ($ram == '2GB') {
                         $value_ram = '5';
-                    } elseif ($ram == '3GB/4GB') {
+                    } elseif ($ram == '3GB') {
                         $value_ram = '4';
-                    } elseif ($ram == '4GB/6GB') {
+                    } elseif ($ram == '4GB') {
                         $value_ram = '3';
-                    } elseif ($ram == '6GB/8GB') {
+                    } elseif ($ram == '6GB') {
                         $value_ram = '2';
-                    } elseif ($ram == '8GB/12GB') {
+                    } elseif ($ram == '8GB') {
                         $value_ram = '1';
                     }
                     $sum_of_squares_ram += pow($value_ram, 2);
@@ -300,15 +304,15 @@ if (!isset($_SESSION['id_users'])) {
                 }
                 
                 foreach ($data_memori as $memori) {
-                    if ($memori == '16GB/32GB') {
+                    if ($memori == '16GB') {
                         $value_memori = '5';
-                    } elseif ($memori == '32GB/64GB') {
+                    } elseif ($memori == '32GB') {
                         $value_memori = '4';
-                    } elseif ($memori == '64GB/128GB') {
+                    } elseif ($memori == '64GB') {
                         $value_memori = '3';
-                    } elseif ($memori == '128GB/256GB') {
+                    } elseif ($memori == '128GB') {
                         $value_memori = '2';
-                    } elseif ($memori == '256GB/512GB') {
+                    } elseif ($memori == '256GB') {
                         $value_memori = '1';
                     }
                     $sum_of_squares_memori += pow($value_memori, 2);
@@ -421,15 +425,15 @@ if (!isset($_SESSION['id_users'])) {
                                             $normalisasi_sistem = $value_sistem / $panjang_vektor_sistem;
                                             echo $normalisasi_sistem;
                                             ?></td>
-                                            <td><?php if ($ram == '2GB/3GB') {
+                                            <td><?php if ($ram == '2GB') {
                                                 $value_ram = '5';
-                                            } elseif ($ram == '3GB/4GB') {
+                                            } elseif ($ram == '3GB') {
                                                 $value_ram = '4';
-                                            } elseif ($ram == '4GB/6GB') {
+                                            } elseif ($ram == '4GB') {
                                                 $value_ram = '3';
-                                            } elseif ($ram == '6GB/8GB') {
+                                            } elseif ($ram == '6GB') {
                                                 $value_ram = '2';
-                                            } elseif ($ram == '8GB/12GB') {
+                                            } elseif ($ram == '8GB') {
                                                 $value_ram = '1';
                                             }
                                             $normalisasi_ram = $value_ram / $panjang_vektor_ram;
@@ -449,15 +453,15 @@ if (!isset($_SESSION['id_users'])) {
                                             $normalisasi_tahun = $value_tahun / $panjang_vektor_tahun;
                                             echo $normalisasi_tahun;
                                             ?></td>
-                                            <td><?php if ($memori == '16GB/32GB') {
+                                            <td><?php if ($memori == '16GB') {
                                                 $value_memori = '5';
-                                            } elseif ($memori == '32GB/64GB') {
+                                            } elseif ($memori == '32GB') {
                                                 $value_memori = '4';
-                                            } elseif ($memori == '64GB/128GB') {
+                                            } elseif ($memori == '64GB') {
                                                 $value_memori = '3';
-                                            } elseif ($memori == '128GB/256GB') {
+                                            } elseif ($memori == '128GB') {
                                                 $value_memori = '2';
-                                            } elseif ($memori == '256GB/512GB') {
+                                            } elseif ($memori == '256GB') {
                                                 $value_memori = '1';
                                             }
                                             $normalisasi_memori = $value_memori / $panjang_vektor_memori;
@@ -602,8 +606,32 @@ if (!isset($_SESSION['id_users'])) {
                         </div>
                     </div>
                 </div>
-
+                <div class="row mt-4">
+                    <div class="col-md-12">
+                        <div class="card mb-4">
+                            <div class="card-header">Input Nama Uji</div>
+                            <div class="card-body">
+                                <label>Nama Uji : </label>
+                                <input type="text" id="nama_uji" placeholder="Masukkan Nama Uji">
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <button id="saveButton" style="color: white;" class="btn btn-success mb-4" onclick="saveData()">Save</button>
+            <?php } else { ?>
+                <div class="container-lg">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <p>Data handphone kosong</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php } ?>
+
 
 
 
@@ -614,6 +642,7 @@ if (!isset($_SESSION['id_users'])) {
     <!-- CoreUI and necessary plugins-->
     <script src="vendors/@coreui/coreui/js/coreui.bundle.min.js"></script>
     <script src="vendors/simplebar/js/simplebar.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <!-- Plugins and scripts required by this view-->
     <script src="js/main.js"></script>
     <script>
@@ -632,9 +661,15 @@ if (!isset($_SESSION['id_users'])) {
     });
 
     async function saveData() {
+        const nama_uji = document.getElementById('nama_uji').value;
+        if (!nama_uji) {
+            swal("Error!", "Nama Uji harus diisi.", "error");
+            return; // Menghentikan proses pengiriman data jika input tidak diisi
+        }
         const date = new Date();
         date.setUTCHours(date.getUTCHours() + 7);
         var data = {
+            nama_uji: nama_uji,
             tanggal: date
         };
         try {
@@ -665,8 +700,11 @@ if (!isset($_SESSION['id_users'])) {
             document.getElementById('saveButton').disabled = true;
             saveDataDetail(parsedData.last_id, hasilhitung);
 
+            swal("Success!", "Data berhasil disimpan.", "success");
+
         } catch (error) {
             console.error('Error:', error);
+            swal("Error!", "Terjadi kesalahan saat menyimpan data.", "error");
         }
     }
 

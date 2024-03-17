@@ -12,18 +12,19 @@ try {
     }
 
     $tanggal = $data['tanggal'];
+    $nama_uji = $data['nama_uji'];
     
     // Convert the date string to a format recognized by MySQL
     $dateObj = new DateTime($tanggal);
     $formattedDate = $dateObj->format('Y-m-d H:i:s');
 
     // Using prepared statement to prevent SQL injection
-    $stmt = $conn->prepare("INSERT INTO hasil (`tanggal`) VALUES (?)");
+    $stmt = $conn->prepare("INSERT INTO hasil (`nama_uji`,`tanggal`) VALUES (?, ?)");
     if (!$stmt) {
         throw new Exception("Prepare failed: (" . $conn->errno . ") " . $conn->error);
     }
 
-    $stmt->bind_param("s", $formattedDate);
+    $stmt->bind_param("ss", $nama_uji,$formattedDate);
 
     if (!$stmt->execute()) {
         throw new Exception("Execute failed: (" . $stmt->errno . ") " . $stmt->error);

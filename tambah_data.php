@@ -101,11 +101,11 @@ if (!isset($_SESSION['id_users'])) {
                                         <label class="col-sm-2 col-form-label" for="harga">RAM</label>
                                         <div class="col-sm-10">
                                         <select class="form-control" id="ram" name="ram">
-                                            <option value="2GB/3GB">2GB/3GB</option>
-                                            <option value="3GB/4GB">3GB/4GB</option>
-                                            <option value="4GB/6GB">4GB/6GB</option>
-                                            <option value="6GB/8GB">6GB/8GB</option>
-                                            <option value="8GB/12GB">8GB/12GB</option>
+                                            <option value="2GB">2GB</option>
+                                            <option value="3GB">3GB</option>
+                                            <option value="4GB">4GB</option>
+                                            <option value="6GB">6GB</option>
+                                            <option value="8GB">8GB</option>
                                             <!-- Add more options based on your data -->
                                         </select>
                                         </div>
@@ -127,11 +127,11 @@ if (!isset($_SESSION['id_users'])) {
                                         <label class="col-sm-2 col-form-label" for="memori_internal">Memori Internal</label>
                                         <div class="col-sm-10">
                                             <select class="form-control" id="memori_internal" name="memori_internal">
-                                                <option value="16GB/32GB">16GB/32GB</option>
-                                                <option value="32GB/64GB">32GB/64GB</option>
-                                                <option value="64GB/128GB">64GB/128GB</option>
-                                                <option value="128GB/256GB">128GB/256GB</option>
-                                                <option value="256GB/512GB">256GB/512GB</option>
+                                                <option value="16GB">16GB</option>
+                                                <option value="32GB">32GB</option>
+                                                <option value="64GB">64GB</option>
+                                                <option value="128GB">128GBB</option>
+                                                <option value="256GB">256GB</option>
                                                 <!-- Add more options based on your data -->
                                             </select>
                                         </div>

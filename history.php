@@ -65,7 +65,8 @@ if (!isset($_SESSION['id_users'])) {
                 <div class="card-body">
                 <table class="table table-bordered table-striped-columns" id="dataTable">
                         <thead>
-                            <th>Pengujian ke</th>
+                            <!-- <th>Pengujian ke</th> -->
+                            <th>Nama Uji</th>
                             <th>Tanggal</th>
                             <th>Aksi</th>
                         </thead>
@@ -75,12 +76,12 @@ if (!isset($_SESSION['id_users'])) {
                 $get_data = mysqli_query($conn, "select * from hasil");
                 while($display = mysqli_fetch_array($get_data)) {
                     $id = $display['id_hasil'];
+                    $nama_uji = $display['nama_uji'];
                     $tanggal = $display['tanggal'];
-                   
-                
                 ?>
                             <tr>
-                                <td><?php echo $id ?></td>
+                                <!-- <td><?php echo $id ?></td> -->
+                                <td><?php echo $nama_uji ?></td>
                                 <!-- <td><?php echo $tanggal ?></td> -->
                                 <td><?php echo (new DateTime($tanggal))->format('d-m-Y H:i:s'); ?></td>
 
@@ -89,6 +90,10 @@ if (!isset($_SESSION['id_users'])) {
                                                     style="text-decoration: none; list-style: none;"><input
                                                         type='submit' value='Detail' id='editbtn'
                                                         class="btn btn-primary btn-user"></a>
+                                                <a href='delete_history.php?Del=<?php echo $id; ?>'
+                                                    style="text-decoration: none; color: #ffffff; list-style: none;"><input
+                                                        type='submit' value='Hapus' id='delbtn'
+                                                        class="btn btn-danger btn-user"></a>
                                             </td>
                             </tr>
                             <?php

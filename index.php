@@ -58,6 +58,7 @@ if (!isset($_SESSION['id_users'])) {
             <div class="container-lg">
                 <div class="row">
                     <p>Selamat Datang <?php echo $_SESSION['nama'] ?>
+                    <p>SISTEM PENDUKUNG KEPUTUSAN PEMILIHAN HANDPHONE YANG AKAN DICUCI GUDANGKAN DENGAN MENGGUNAKAN METODE MOORA</p>
                     <div class="col-sm-6 col-lg-3">
                         <div class="card mb-4 text-white bg-primary">
                             <div class="card-body pb-0 d-flex justify-content-between align-items-start">
