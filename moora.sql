@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 08, 2024 at 09:28 AM
+-- Generation Time: Mar 18, 2024 at 04:46 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.17
 
@@ -44,7 +44,20 @@ INSERT INTO `detail_hasil` (`id_detail_hasil`, `id_hasil`, `nama_alternatif`, `h
 (7, 5, 'Vivo y12s', 49.083142821834, 2),
 (8, 5, 'Oppo a15', 44.361213904246, 3),
 (9, 5, 'Realme c15', 42.863765359989, 4),
-(10, 5, 'Samsung Galaxy A24', 19.751030624804, 5);
+(10, 5, 'Samsung Galaxy A24', 19.751030624804, 5),
+(11, 6, 'Xiaomi Note 8', 56.489203467027, 1),
+(12, 6, 'Oppo a15', 45.326778990078, 2),
+(13, 6, 'Vivo y12s', 43.867482529975, 3),
+(14, 6, 'Realme c15', 43.82933044582, 4),
+(15, 6, 'Samsung Galaxy A24', 20.233813167719, 5),
+(16, 7, 'Xiaomi Note 8', 53.305225141122, 1),
+(17, 7, 'Vivo y12s', 50.875567526976, 2),
+(18, 7, 'Oppo a15', 44.409924028231, 3),
+(19, 7, 'Realme c15', 42.614948612811, 4),
+(20, 7, 'Samsung Galaxy A24', 20.421361065636, 5),
+(21, 8, 'Oppo a15', 100, 1),
+(22, 9, 'Oppo a15', 100, 1),
+(23, 10, 'Oppo a15', 100, 1);
 
 -- --------------------------------------------------------
 
@@ -63,17 +76,6 @@ CREATE TABLE `handphone` (
   `memori_internal` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `handphone`
---
-
-INSERT INTO `handphone` (`id_handphone`, `merk`, `harga`, `daya_tahan`, `sistem_operasi`, `ram`, `tahun_launching`, `memori_internal`) VALUES
-(1, 'Vivo y12s', '1899000', '5000', 'Android 9.0 (Pie)', '3GB/4GB', '2020/2021', '32GB/64GB'),
-(2, 'Realme c15', '1999000', '6000', 'Android 10 (Q)', '3GB/4GB', '2020/2021', '32GB/64GB'),
-(3, 'Xiaomi Note 8', '1300000', '4000', 'Android 9.0 (Pie)', '3GB/4GB', '2018/2019', '32GB/64GB'),
-(5, 'Oppo a15', '2000000', '4230', 'Android 10 (Q)', '2GB/3GB', '2020/2021', '32GB/64GB'),
-(6, 'Samsung Galaxy A24', '3000000', '5000', 'Android 12', '8GB/12GB', '2022/2023', '128GB/256GB');
-
 -- --------------------------------------------------------
 
 --
@@ -82,6 +84,7 @@ INSERT INTO `handphone` (`id_handphone`, `merk`, `harga`, `daya_tahan`, `sistem_
 
 CREATE TABLE `hasil` (
   `id_hasil` int(11) NOT NULL,
+  `nama_uji` varchar(255) DEFAULT NULL,
   `tanggal` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -89,8 +92,9 @@ CREATE TABLE `hasil` (
 -- Dumping data for table `hasil`
 --
 
-INSERT INTO `hasil` (`id_hasil`, `tanggal`) VALUES
-(5, '2024-03-08 15:07:56');
+INSERT INTO `hasil` (`id_hasil`, `nama_uji`, `tanggal`) VALUES
+(8, 'Array', '2024-03-17 21:23:29'),
+(10, 'oppo 2', '2024-03-17 21:28:07');
 
 -- --------------------------------------------------------
 
@@ -181,19 +185,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `detail_hasil`
 --
 ALTER TABLE `detail_hasil`
-  MODIFY `id_detail_hasil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_detail_hasil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `handphone`
 --
 ALTER TABLE `handphone`
-  MODIFY `id_handphone` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_handphone` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `hasil`
 --
 ALTER TABLE `hasil`
-  MODIFY `id_hasil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_hasil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `kriteria`
