@@ -64,7 +64,7 @@ if (!isset($_SESSION['id_users'])) {
                 <div class="card-header">Data Kriteria</div>
                 <div class="card-body">
                     <!-- <button class="mb-4">Tambah Data</button> -->
-                    <a href="tambah_kriteria.php" class="btn btn-primary btn-user mb-4">Tambah Kriteria</a>
+                    <!-- <a href="tambah_kriteria.php" class="btn btn-primary btn-user mb-4">Tambah Kriteria</a> -->
                 <table class="table table-bordered table-striped-columns" id="dataTable">
                         <thead>
                             <th>No</th>
@@ -95,10 +95,10 @@ if (!isset($_SESSION['id_users'])) {
                                                     style="text-decoration: none; list-style: none;"><input
                                                         type='submit' value='Ubah' id='editbtn'
                                                         class="btn btn-primary btn-user"></a>
-                                                <a href='delete_kriteria.php?Del=<?php echo $id; ?>'
+                                                <!-- <a href='delete_kriteria.php?Del=<?php echo $id; ?>'
                                                     style="text-decoration: none; list-style: none;"><input
                                                         type='submit' value='Hapus' id='delbtn'
-                                                        class="btn btn-primary btn-user"></a>
+                                                        class="btn btn-primary btn-user"></a> -->
                                             </td>
                             </tr>
                             <?php

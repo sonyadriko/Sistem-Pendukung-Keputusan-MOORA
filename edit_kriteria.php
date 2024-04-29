@@ -71,21 +71,21 @@ while($row = mysqli_fetch_assoc($query)){
                                     <div class="row mb-3">
                                         <label class="col-sm-2 col-form-label" for="nama">Nama Kriteria</label>
                                         <div class="col-sm-10">
-                                            <input class="form-control" id="nama" value=<?php echo $nama ?> name="nama" type="text"
+                                            <input class="form-control" id="nama" value="<?php echo $nama ?>" name="nama" type="text"
                                                 placeholder="Enter Nama Kriteria">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <label class="col-sm-2 col-form-label" for="bobot">Bobot Kriteria</label>
                                         <div class="col-sm-10">
-                                            <input class="form-control" id="bobot" value=<?php echo $bobot?> name="bobot" type="number"
+                                            <input class="form-control" id="bobot" value="<?php echo $bobot?>" name="bobot" type="number"
                                                 placeholder="Enter Bobot Kriteria">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <label class="col-sm-2 col-form-label" for="merk">Tipe Kriteria</label>
                                         <div class="col-sm-10">
-                                            <input class="form-control" id="tipe" value=<?php echo $tipe ?> name="tipe" type="text"
+                                            <input class="form-control" id="tipe" value="<?php echo $tipe ?>" name="tipe" type="text"
                                                 placeholder="Enter Tipe Kriteria">
                                         </div>
                                     </div>

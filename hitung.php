@@ -4,7 +4,7 @@ session_start();
 if (!isset($_SESSION['id_users'])) {
     header('Location: login.php');
 }
-$get_data = mysqli_query($conn, "SELECT COUNT(*) AS total FROM handphone");
+$get_data = mysqli_query($conn, 'SELECT COUNT(*) AS total FROM handphone');
 $row = mysqli_fetch_assoc($get_data);
 $totalData = $row['total'];
 ?>
@@ -45,6 +45,15 @@ $totalData = $row['total'];
     <!-- We use those styles to show code examples, you should remove them in your application.-->
     <link href="css/examples.css" rel="stylesheet">
     <link href="vendors/@coreui/chartjs/css/coreui-chartjs.css" rel="stylesheet">
+
+    <!-- DataTables CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+
+<!-- jQuery Library -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 </head>
 
 <body>
@@ -59,22 +68,22 @@ $totalData = $row['total'];
                         <div class="card mb-4">
                             <div class="card-header">Tabel Hasil Konversi</div>
                             <div class="card-body">
-                            <div class="table-responsive">
-                                <!-- <button class="mb-4">Tambah Data</button> -->
-                                <!-- <a href="tambah_kriteria.php" class="btn btn-primary btn-user mb-4">Tambah Kriteria</a> -->
-                                <table class="table table-bordered table-striped-columns">
-                                    <thead>
-                                        <th>No</th>
-                                        <th>Alternatif</th>
-                                        <th>K1</th>
-                                        <th>K2</th>
-                                        <th>K3</th>
-                                        <th>K4</th>
-                                        <th>K5</th>
-                                        <th>K6</th>
-                                    </thead>
-                                    <tbody>
-                                        <?php 
+                                <div class="table-responsive">
+                                    <!-- <button class="mb-4">Tambah Data</button> -->
+                                    <!-- <a href="tambah_kriteria.php" class="btn btn-primary btn-user mb-4">Tambah Kriteria</a> -->
+                                    <table class="table table-bordered table-striped-columns" id="dataTable">
+                                        <thead>
+                                            <th>No</th>
+                                            <th>Alternatif</th>
+                                            <th>K1</th>
+                                            <th>K2</th>
+                                            <th>K3</th>
+                                            <th>K4</th>
+                                            <th>K5</th>
+                                            <th>K6</th>
+                                        </thead>
+                                        <tbody>
+                                            <?php 
                                             $no = 1;
                                             $get_data = mysqli_query($conn, "select * from handphone");
                                             while($display = mysqli_fetch_array($get_data)) {
@@ -88,96 +97,96 @@ $totalData = $row['total'];
                                                 $memori = $display['memori_internal'];
                                             
                                             ?>
-                                        <tr>
-                                            <td><?php echo $no; ?></td>
-                                            <td><?php echo $merk; ?></td>
-                                            <td><?php if ($harga > 100000 && $harga < 1500000) {
-                                                $value_harga = '5';
-                                            } elseif ($harga >= 1500000 && $harga < 2000000) {
-                                                $value_harga = '4';
-                                            } elseif ($harga >= 2000000 && $harga < 2500000) {
-                                                $value_harga = '3';
-                                            } elseif ($harga >= 2500000 && $harga < 3000000) {
-                                                $value_harga = '2';
-                                            } elseif ($harga >= 3000000) {
-                                                $value_harga = '1';
-                                            } else {
-                                                $value_harga = '0';
-                                            }
-                                            echo $value_harga;
-                                            ?></td>
-                                            <td><?php if ($daya > 3000 && $daya <= 4000) {
-                                                $value_daya = '5';
-                                            } elseif ($daya > 4000 && $daya <= 5020) {
-                                                $value_daya = '4';
-                                            } elseif ($daya > 5020 && $daya <= 5160) {
-                                                $value_daya = '3';
-                                            } elseif ($daya > 5160 && $daya <= 6000) {
-                                                $value_daya = '2';
-                                            } elseif ($daya > 6000 && $daya <= 7000) {
-                                                $value_daya = '1';
-                                            }
-                                            echo $value_daya;
-                                            ?></td>
-                                            <td><?php if ($sistem == 'Android 8.0' && $sistem == 'Android 8.1 (Ore)') {
-                                                $value_sistem = '5';
-                                            } elseif ($sistem == 'Android 9.0 (Pie)') {
-                                                $value_sistem = '4';
-                                            } elseif ($sistem == 'Android 10 (Q)') {
-                                                $value_sistem = '3';
-                                            } elseif ($sistem == 'Android 11') {
-                                                $value_sistem = '2';
-                                            } elseif ($sistem == 'Android 12') {
-                                                $value_sistem = '1';
-                                            }
-                                            echo $value_sistem;
-                                            ?></td>
-                                            <td><?php if ($ram == '2GB') {
-                                                $value_ram = '5';
-                                            } elseif ($ram == '3GB') {
-                                                $value_ram = '4';
-                                            } elseif ($ram == '4GB') {
-                                                $value_ram = '3';
-                                            } elseif ($ram == '6GB') {
-                                                $value_ram = '2';
-                                            } elseif ($ram == '8GB') {
-                                                $value_ram = '1';
-                                            }
-                                            echo $value_ram;
-                                            ?></td>
-                                            <td><?php if ($tahun == '2014/2015') {
-                                                $value_tahun = '5';
-                                            } elseif ($tahun == '2016/2017') {
-                                                $value_tahun = '4';
-                                            } elseif ($tahun == '2018/2019') {
-                                                $value_tahun = '3';
-                                            } elseif ($tahun == '2020/2021') {
-                                                $value_tahun = '2';
-                                            } elseif ($tahun == '2022/2023') {
-                                                $value_tahun = '1';
-                                            }
-                                            echo $value_tahun;
-                                            ?></td>
-                                            <td><?php if ($memori == '16GB') {
-                                                $value_memori = '5';
-                                            } elseif ($memori == '32GB') {
-                                                $value_memori = '4';
-                                            } elseif ($memori == '64GB') {
-                                                $value_memori = '3';
-                                            } elseif ($memori == '128GB') {
-                                                $value_memori = '2';
-                                            } elseif ($memori == '256GB') {
-                                                $value_memori = '1';
-                                            }
-                                            echo $value_memori; ?></td>
-                                        </tr>
-                                        <?php
+                                            <tr>
+                                                <td><?php echo $no; ?></td>
+                                                <td><?php echo $merk; ?></td>
+                                                <td><?php if ($harga > 100000 && $harga < 1500000) {
+                                                    $value_harga = '5';
+                                                } elseif ($harga >= 1500000 && $harga < 2000000) {
+                                                    $value_harga = '4';
+                                                } elseif ($harga >= 2000000 && $harga < 2500000) {
+                                                    $value_harga = '3';
+                                                } elseif ($harga >= 2500000 && $harga < 3000000) {
+                                                    $value_harga = '2';
+                                                } elseif ($harga >= 3000000) {
+                                                    $value_harga = '1';
+                                                } else {
+                                                    $value_harga = '0';
+                                                }
+                                                echo $value_harga;
+                                                ?></td>
+                                                <td><?php if ($daya > 3000 && $daya <= 4000) {
+                                                    $value_daya = '5';
+                                                } elseif ($daya > 4000 && $daya <= 5020) {
+                                                    $value_daya = '4';
+                                                } elseif ($daya > 5020 && $daya <= 5160) {
+                                                    $value_daya = '3';
+                                                } elseif ($daya > 5160 && $daya <= 6000) {
+                                                    $value_daya = '2';
+                                                } elseif ($daya > 6000 && $daya <= 7000) {
+                                                    $value_daya = '1';
+                                                }
+                                                echo $value_daya;
+                                                ?></td>
+                                                <td><?php if ($sistem == 'Android 8.0' && $sistem == 'Android 8.1 (Ore)') {
+                                                    $value_sistem = '5';
+                                                } elseif ($sistem == 'Android 9.0 (Pie)') {
+                                                    $value_sistem = '4';
+                                                } elseif ($sistem == 'Android 10 (Q)') {
+                                                    $value_sistem = '3';
+                                                } elseif ($sistem == 'Android 11') {
+                                                    $value_sistem = '2';
+                                                } elseif ($sistem == 'Android 12') {
+                                                    $value_sistem = '1';
+                                                }
+                                                echo $value_sistem;
+                                                ?></td>
+                                                <td><?php if ($ram == '2GB') {
+                                                    $value_ram = '5';
+                                                } elseif ($ram == '3GB') {
+                                                    $value_ram = '4';
+                                                } elseif ($ram == '4GB') {
+                                                    $value_ram = '3';
+                                                } elseif ($ram == '6GB') {
+                                                    $value_ram = '2';
+                                                } elseif ($ram == '8GB') {
+                                                    $value_ram = '1';
+                                                }
+                                                echo $value_ram;
+                                                ?></td>
+                                                <td><?php if ($tahun == '2014/2015') {
+                                                    $value_tahun = '5';
+                                                } elseif ($tahun == '2016/2017') {
+                                                    $value_tahun = '4';
+                                                } elseif ($tahun == '2018/2019') {
+                                                    $value_tahun = '3';
+                                                } elseif ($tahun == '2020/2021') {
+                                                    $value_tahun = '2';
+                                                } elseif ($tahun == '2022/2023') {
+                                                    $value_tahun = '1';
+                                                }
+                                                echo $value_tahun;
+                                                ?></td>
+                                                <td><?php if ($memori == '16GB') {
+                                                    $value_memori = '5';
+                                                } elseif ($memori == '32GB') {
+                                                    $value_memori = '4';
+                                                } elseif ($memori == '64GB') {
+                                                    $value_memori = '3';
+                                                } elseif ($memori == '128GB') {
+                                                    $value_memori = '2';
+                                                } elseif ($memori == '256GB') {
+                                                    $value_memori = '1';
+                                                }
+                                                echo $value_memori; ?></td>
+                                            </tr>
+                                            <?php
                                             $no++;
                                                 }
                                             ?>
-                                    </tbody>
-                                </table>
-                            </div>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -326,35 +335,62 @@ $totalData = $row['total'];
                 $panjang_vektor_ram = sqrt($sum_of_squares_ram);
                 $panjang_vektor_tahun = sqrt($sum_of_squares_tahun);
                 $panjang_vektor_memori = sqrt($sum_of_squares_memori);
-                
-                // Tampilkan panjang vektor
-                echo 'K1: ' . $panjang_vektor_harga . '<br>';
-                echo 'K2: ' . $panjang_vektor_daya . '<br>';
-                echo 'K3: ' . $panjang_vektor_sistem . '<br>';
-                echo 'K4: ' . $panjang_vektor_ram . '<br>';
-                echo 'K5: ' . $panjang_vektor_tahun . '<br>';
-                echo 'K6: ' . $panjang_vektor_memori . '<br>';
-                
                 ?>
+                <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Kriteria</th>
+                        <th>Hasil Normalisasi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>K1</td>
+                        <td><?php echo $panjang_vektor_harga; ?></td>
+                    </tr>
+                    <tr>
+                        <td>K2</td>
+                        <td><?php echo $panjang_vektor_daya; ?></td>
+                    </tr>
+                    <tr>
+                        <td>K3</td>
+                        <td><?php echo $panjang_vektor_sistem; ?></td>
+                    </tr>
+                    <tr>
+                        <td>K4</td>
+                        <td><?php echo $panjang_vektor_ram; ?></td>
+                    </tr>
+                    <tr>
+                        <td>K5</td>
+                        <td><?php echo $panjang_vektor_tahun; ?></td>
+                    </tr>
+                    <tr>
+                        <td>K6</td>
+                        <td><?php echo $panjang_vektor_memori; ?></td>
+                    </tr>
+                </tbody>
+            </table>
+                
+                
                 <div class="row mt-4">
                     <div class="col-md-12">
                         <div class="card mb-4">
                             <div class="card-header">Tabel Nilai Normalisasi</div>
                             <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-striped-columns">
-                                    <thead>
-                                        <th>No</th>
-                                        <th>Alternatif</th>
-                                        <th>K1</th>
-                                        <th>K2</th>
-                                        <th>K3</th>
-                                        <th>K4</th>
-                                        <th>K5</th>
-                                        <th>K6</th>
-                                    </thead>
-                                    <tbody>
-                                        <?php 
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped-columns" id="dataTable2">
+                                        <thead>
+                                            <th>No</th>
+                                            <th>Alternatif</th>
+                                            <th>K1</th>
+                                            <th>K2</th>
+                                            <th>K3</th>
+                                            <th>K4</th>
+                                            <th>K5</th>
+                                            <th>K6</th>
+                                        </thead>
+                                        <tbody>
+                                            <?php 
                                             $no = 1;
 
                                             $normalizedValues = [];
@@ -377,113 +413,113 @@ $totalData = $row['total'];
                                                 $memori = $display['memori_internal'];
                                             
                                             ?>
-                                        <tr>
-                                            <td><?php echo $no; ?></td>
-                                            <td><?php echo $merk; ?></td>
-                                            <td><?php if ($harga > 100000 && $harga < 1500000) {
-                                                $value_harga = '5';
-                                            } elseif ($harga >= 1500000 && $harga < 2000000) {
-                                                $value_harga = '4';
-                                            } elseif ($harga >= 2000000 && $harga < 2500000) {
-                                                $value_harga = '3';
-                                            } elseif ($harga >= 2500000 && $harga < 3000000) {
-                                                $value_harga = '2';
-                                            } elseif ($harga >= 3000000) {
-                                                $value_harga = '1';
-                                            } else {
-                                                $value_harga = '0';
-                                            }
-                                            $normalisasi_harga = $value_harga / $panjang_vektor_harga;
-                                            echo $normalisasi_harga;
-                                            $normalisasi_harga_arr[] = $normalisasi_harga;
-                                            ?></td>
-                                            <td><?php if ($daya > 3000 && $daya <= 4000) {
-                                                $value_daya = '5';
-                                            } elseif ($daya > 4000 && $daya <= 5020) {
-                                                $value_daya = '4';
-                                            } elseif ($daya > 5020 && $daya <= 5160) {
-                                                $value_daya = '3';
-                                            } elseif ($daya > 5160 && $daya <= 6000) {
-                                                $value_daya = '2';
-                                            } elseif ($daya > 6000 && $daya <= 7000) {
-                                                $value_daya = '1';
-                                            }
-                                            $normalisasi_daya = $value_daya / $panjang_vektor_daya;
-                                            echo $normalisasi_daya;
-                                            ?></td>
-                                            <td><?php if ($sistem == 'Android 8.0' && $sistem == 'Android 8.1 (Ore)') {
-                                                $value_sistem = '5';
-                                            } elseif ($sistem == 'Android 9.0 (Pie)') {
-                                                $value_sistem = '4';
-                                            } elseif ($sistem == 'Android 10 (Q)') {
-                                                $value_sistem = '3';
-                                            } elseif ($sistem == 'Android 11') {
-                                                $value_sistem = '2';
-                                            } elseif ($sistem == 'Android 12') {
-                                                $value_sistem = '1';
-                                            }
-                                            $normalisasi_sistem = $value_sistem / $panjang_vektor_sistem;
-                                            echo $normalisasi_sistem;
-                                            ?></td>
-                                            <td><?php if ($ram == '2GB') {
-                                                $value_ram = '5';
-                                            } elseif ($ram == '3GB') {
-                                                $value_ram = '4';
-                                            } elseif ($ram == '4GB') {
-                                                $value_ram = '3';
-                                            } elseif ($ram == '6GB') {
-                                                $value_ram = '2';
-                                            } elseif ($ram == '8GB') {
-                                                $value_ram = '1';
-                                            }
-                                            $normalisasi_ram = $value_ram / $panjang_vektor_ram;
-                                            echo $normalisasi_ram;
-                                            ?></td>
-                                            <td><?php if ($tahun == '2014/2015') {
-                                                $value_tahun = '5';
-                                            } elseif ($tahun == '2016/2017') {
-                                                $value_tahun = '4';
-                                            } elseif ($tahun == '2018/2019') {
-                                                $value_tahun = '3';
-                                            } elseif ($tahun == '2020/2021') {
-                                                $value_tahun = '2';
-                                            } elseif ($tahun == '2022/2023') {
-                                                $value_tahun = '1';
-                                            }
-                                            $normalisasi_tahun = $value_tahun / $panjang_vektor_tahun;
-                                            echo $normalisasi_tahun;
-                                            ?></td>
-                                            <td><?php if ($memori == '16GB') {
-                                                $value_memori = '5';
-                                            } elseif ($memori == '32GB') {
-                                                $value_memori = '4';
-                                            } elseif ($memori == '64GB') {
-                                                $value_memori = '3';
-                                            } elseif ($memori == '128GB') {
-                                                $value_memori = '2';
-                                            } elseif ($memori == '256GB') {
-                                                $value_memori = '1';
-                                            }
-                                            $normalisasi_memori = $value_memori / $panjang_vektor_memori;
-                                            echo $normalisasi_memori; ?></td>
+                                            <tr>
+                                                <td><?php echo $no; ?></td>
+                                                <td><?php echo $merk; ?></td>
+                                                <td><?php if ($harga > 100000 && $harga < 1500000) {
+                                                    $value_harga = '5';
+                                                } elseif ($harga >= 1500000 && $harga < 2000000) {
+                                                    $value_harga = '4';
+                                                } elseif ($harga >= 2000000 && $harga < 2500000) {
+                                                    $value_harga = '3';
+                                                } elseif ($harga >= 2500000 && $harga < 3000000) {
+                                                    $value_harga = '2';
+                                                } elseif ($harga >= 3000000) {
+                                                    $value_harga = '1';
+                                                } else {
+                                                    $value_harga = '0';
+                                                }
+                                                $normalisasi_harga = $value_harga / $panjang_vektor_harga;
+                                                echo $normalisasi_harga;
+                                                $normalisasi_harga_arr[] = $normalisasi_harga;
+                                                ?></td>
+                                                <td><?php if ($daya > 3000 && $daya <= 4000) {
+                                                    $value_daya = '5';
+                                                } elseif ($daya > 4000 && $daya <= 5020) {
+                                                    $value_daya = '4';
+                                                } elseif ($daya > 5020 && $daya <= 5160) {
+                                                    $value_daya = '3';
+                                                } elseif ($daya > 5160 && $daya <= 6000) {
+                                                    $value_daya = '2';
+                                                } elseif ($daya > 6000 && $daya <= 7000) {
+                                                    $value_daya = '1';
+                                                }
+                                                $normalisasi_daya = $value_daya / $panjang_vektor_daya;
+                                                echo $normalisasi_daya;
+                                                ?></td>
+                                                <td><?php if ($sistem == 'Android 8.0' && $sistem == 'Android 8.1 (Ore)') {
+                                                    $value_sistem = '5';
+                                                } elseif ($sistem == 'Android 9.0 (Pie)') {
+                                                    $value_sistem = '4';
+                                                } elseif ($sistem == 'Android 10 (Q)') {
+                                                    $value_sistem = '3';
+                                                } elseif ($sistem == 'Android 11') {
+                                                    $value_sistem = '2';
+                                                } elseif ($sistem == 'Android 12') {
+                                                    $value_sistem = '1';
+                                                }
+                                                $normalisasi_sistem = $value_sistem / $panjang_vektor_sistem;
+                                                echo $normalisasi_sistem;
+                                                ?></td>
+                                                <td><?php if ($ram == '2GB') {
+                                                    $value_ram = '5';
+                                                } elseif ($ram == '3GB') {
+                                                    $value_ram = '4';
+                                                } elseif ($ram == '4GB') {
+                                                    $value_ram = '3';
+                                                } elseif ($ram == '6GB') {
+                                                    $value_ram = '2';
+                                                } elseif ($ram == '8GB') {
+                                                    $value_ram = '1';
+                                                }
+                                                $normalisasi_ram = $value_ram / $panjang_vektor_ram;
+                                                echo $normalisasi_ram;
+                                                ?></td>
+                                                <td><?php if ($tahun == '2014/2015') {
+                                                    $value_tahun = '5';
+                                                } elseif ($tahun == '2016/2017') {
+                                                    $value_tahun = '4';
+                                                } elseif ($tahun == '2018/2019') {
+                                                    $value_tahun = '3';
+                                                } elseif ($tahun == '2020/2021') {
+                                                    $value_tahun = '2';
+                                                } elseif ($tahun == '2022/2023') {
+                                                    $value_tahun = '1';
+                                                }
+                                                $normalisasi_tahun = $value_tahun / $panjang_vektor_tahun;
+                                                echo $normalisasi_tahun;
+                                                ?></td>
+                                                <td><?php if ($memori == '16GB') {
+                                                    $value_memori = '5';
+                                                } elseif ($memori == '32GB') {
+                                                    $value_memori = '4';
+                                                } elseif ($memori == '64GB') {
+                                                    $value_memori = '3';
+                                                } elseif ($memori == '128GB') {
+                                                    $value_memori = '2';
+                                                } elseif ($memori == '256GB') {
+                                                    $value_memori = '1';
+                                                }
+                                                $normalisasi_memori = $value_memori / $panjang_vektor_memori;
+                                                echo $normalisasi_memori; ?></td>
 
-                                            <?php $normalizedValues[] = [
-                                                'merk' => $merk,
-                                                'n1' => $normalisasi_harga,
-                                                'n2' => $normalisasi_daya,
-                                                'n3' => $normalisasi_sistem,
-                                                'n4' => $normalisasi_ram,
-                                                'n5' => $normalisasi_tahun,
-                                                'n6' => $normalisasi_memori,
-                                            ]; ?>
-                                        </tr>
-                                        <?php
+                                                <?php $normalizedValues[] = [
+                                                    'merk' => $merk,
+                                                    'n1' => $normalisasi_harga,
+                                                    'n2' => $normalisasi_daya,
+                                                    'n3' => $normalisasi_sistem,
+                                                    'n4' => $normalisasi_ram,
+                                                    'n5' => $normalisasi_tahun,
+                                                    'n6' => $normalisasi_memori,
+                                                ]; ?>
+                                            </tr>
+                                            <?php
                                             $no++;
                                                 }
                                             ?>
-                                    </tbody>
-                                </table>
-                            </div>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -495,46 +531,46 @@ $totalData = $row['total'];
                         <div class="card mb-4">
                             <div class="card-header">Tabel Nilai Optimasi</div>
                             <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-striped-columns">
-                                    <thead>
-                                        <th>No</th>
-                                        <th>Merk</th>
-                                        <th>K1</th>
-                                        <th>K2</th>
-                                        <th>K3</th>
-                                        <th>K4</th>
-                                        <th>K5</th>
-                                        <th>K6</th>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $no = 1;
-                                        
-                                        $bobot_kriteria = [];
-                                        
-                                        $q = mysqli_query($conn, 'SELECT bobot_kriteria FROM kriteria ORDER BY id_kriteria');
-                                        while ($row = mysqli_fetch_assoc($q)) {
-                                            $bobot_kriteria[] = floatval($row['bobot_kriteria']); // Cast to float to ensure the values are numerical
-                                        }
-                                        
-                                        foreach ($normalizedValues as $data) {
-                                            echo '<tr>';
-                                            echo '<td class="text-truncate">' . $no . '</td>';
-                                            echo '<td class="text-truncate">' . $data['merk'] . '</td>';
-                                            echo '<td class="text-truncate">' . $data['n1'] * $bobot_kriteria[0] . '</td>';
-                                            echo '<td class="text-truncate">' . $data['n2'] * $bobot_kriteria[1] . '</td>';
-                                            echo '<td class="text-truncate">' . $data['n3'] * $bobot_kriteria[2] . '</td>';
-                                            echo '<td class="text-truncate">' . $data['n4'] * $bobot_kriteria[3] . '</td>';
-                                            echo '<td class="text-truncate">' . $data['n5'] * $bobot_kriteria[4] . '</td>';
-                                            echo '<td class="text-truncate">' . $data['n6'] * $bobot_kriteria[5] . '</td>';
-                                            echo '</tr>';
-                                            $no++; // Increment $no here
-                                        }
-                                        ?>
-                                    </tbody>
-                                </table>
-                            </div>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped-columns" id="dataTable">
+                                        <thead>
+                                            <th>No</th>
+                                            <th>Merk</th>
+                                            <th>K1</th>
+                                            <th>K2</th>
+                                            <th>K3</th>
+                                            <th>K4</th>
+                                            <th>K5</th>
+                                            <th>K6</th>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $no = 1;
+                                            
+                                            $bobot_kriteria = [];
+                                            
+                                            $q = mysqli_query($conn, 'SELECT bobot_kriteria FROM kriteria ORDER BY id_kriteria');
+                                            while ($row = mysqli_fetch_assoc($q)) {
+                                                $bobot_kriteria[] = floatval($row['bobot_kriteria']); // Cast to float to ensure the values are numerical
+                                            }
+                                            
+                                            foreach ($normalizedValues as $data) {
+                                                echo '<tr>';
+                                                echo '<td class="text-truncate">' . $no . '</td>';
+                                                echo '<td class="text-truncate">' . $data['merk'] . '</td>';
+                                                echo '<td class="text-truncate">' . $data['n1'] * $bobot_kriteria[0] . '</td>';
+                                                echo '<td class="text-truncate">' . $data['n2'] * $bobot_kriteria[1] . '</td>';
+                                                echo '<td class="text-truncate">' . $data['n3'] * $bobot_kriteria[2] . '</td>';
+                                                echo '<td class="text-truncate">' . $data['n4'] * $bobot_kriteria[3] . '</td>';
+                                                echo '<td class="text-truncate">' . $data['n5'] * $bobot_kriteria[4] . '</td>';
+                                                echo '<td class="text-truncate">' . $data['n6'] * $bobot_kriteria[5] . '</td>';
+                                                echo '</tr>';
+                                                $no++; // Increment $no here
+                                            }
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -587,7 +623,7 @@ $totalData = $row['total'];
                                                 'nilai_akhir' => $ranked['total'],
                                                 'ranking' => $rank - 1,
                                             ];
-
+                                        
                                             $alternatif_nilai_akhir_encoded[] = $item;
                                         }
                                         
@@ -617,8 +653,9 @@ $totalData = $row['total'];
                         </div>
                     </div>
                 </div>
-                <button id="saveButton" style="color: white;" class="btn btn-success mb-4" onclick="saveData()">Save</button>
-            <?php } else { ?>
+                <button id="saveButton" style="color: white;" class="btn btn-success mb-4"
+                    onclick="saveData()">Save</button>
+                <?php } else { ?>
                 <div class="container-lg">
                     <div class="row">
                         <div class="col-md-12">
@@ -646,104 +683,113 @@ $totalData = $row['total'];
     <!-- Plugins and scripts required by this view-->
     <script src="js/main.js"></script>
     <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var hasilhitung = [];
-        const saveButton = document.getElementById('saveButton');
-        if (saveButton) {
-            console.log('Button Disabled:', saveButton.disabled);
-        }
+$(document).ready( function () {
+    $('.table').DataTable();
+});
+$(document).ready( function () {
+    $('.table2').DataTable();
+});
+</script>
 
-        document.addEventListener("submit", function (event) {
-            event.preventDefault();
-            saveData(); //Pass hasilhitung
-        });
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var hasilhitung = [];
+            const saveButton = document.getElementById('saveButton');
+            if (saveButton) {
+                console.log('Button Disabled:', saveButton.disabled);
+            }
 
-    });
-
-    async function saveData() {
-        const nama_uji = document.getElementById('nama_uji').value;
-        if (!nama_uji) {
-            swal("Error!", "Nama Uji harus diisi.", "error");
-            return; // Menghentikan proses pengiriman data jika input tidak diisi
-        }
-        const date = new Date();
-        date.setUTCHours(date.getUTCHours() + 7);
-        var data = {
-            nama_uji: nama_uji,
-            tanggal: date
-        };
-        try {
-            const response = await fetch('save_data.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
+            document.addEventListener("submit", function(event) {
+                event.preventDefault();
+                saveData(); //Pass hasilhitung
             });
 
-            if (!response.ok) {
-                throw new Error('Network response wasn\'t ok');
+        });
+
+        async function saveData() {
+            const nama_uji = document.getElementById('nama_uji').value;
+            if (!nama_uji) {
+                swal("Error!", "Nama Uji harus diisi.", "error");
+                return; // Menghentikan proses pengiriman data jika input tidak diisi
             }
-
-            const textData = await response.text();
-            console.log('Data hasil dari server: ', textData);
-
-            if (textData.trim() == '') {
-                console.error('Empty response from server.');
-                return;
-            }
-
-            const parsedData = JSON.parse(textData);
-            console.log('Data hasil berhasil di-parse:', parsedData);
-
-            var hasilhitung = hasilhitungjson || [];
-            document.getElementById('saveButton').disabled = true;
-            saveDataDetail(parsedData.last_id, hasilhitung);
-
-            swal("Success!", "Data berhasil disimpan.", "success");
-
-        } catch (error) {
-            console.error('Error:', error);
-            swal("Error!", "Terjadi kesalahan saat menyimpan data.", "error");
-        }
-    }
-
-    function saveDataDetail(idHasil, hasilhitung) {
-        var detailDataArray = [];
-
-        hasilhitung.forEach(rule => {
-            var detailData = {
-                id_hasil: idHasil,
-                nama_alternatif: rule.nama,
-                number: rule.nilai_akhir,
-                rank: rule.ranking,
+            const date = new Date();
+            date.setUTCHours(date.getUTCHours() + 7);
+            var data = {
+                nama_uji: nama_uji,
+                tanggal: date
             };
-            detailDataArray.push(detailData);
+            try {
+                const response = await fetch('save_data.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
 
-        })
-        console.log(detailDataArray);
+                if (!response.ok) {
+                    throw new Error('Network response wasn\'t ok');
+                }
 
-        fetch('save_data_detail.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                detailDataArray
-            }),
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Data detail hasil successfully saved:', data);
-                setTimeout(function () {
-                    document.getElementById('saveButton').disabled = true;
-                }, 100);
-            })
-            .catch(error => {
+                const textData = await response.text();
+                console.log('Data hasil dari server: ', textData);
+
+                if (textData.trim() == '') {
+                    console.error('Empty response from server.');
+                    return;
+                }
+
+                const parsedData = JSON.parse(textData);
+                console.log('Data hasil berhasil di-parse:', parsedData);
+
+                var hasilhitung = hasilhitungjson || [];
+                document.getElementById('saveButton').disabled = true;
+                saveDataDetail(parsedData.last_id, hasilhitung);
+
+                swal("Success!", "Data berhasil disimpan.", "success");
+
+            } catch (error) {
                 console.error('Error:', error);
+                swal("Error!", "Terjadi kesalahan saat menyimpan data.", "error");
+            }
+        }
+
+        function saveDataDetail(idHasil, hasilhitung) {
+            var detailDataArray = [];
+
+            hasilhitung.forEach(rule => {
+                var detailData = {
+                    id_hasil: idHasil,
+                    nama_alternatif: rule.nama,
+                    number: rule.nilai_akhir,
+                    rank: rule.ranking,
+                };
+                detailDataArray.push(detailData);
+
             })
-    }
-</script>
+            console.log(detailDataArray);
+
+            fetch('save_data_detail.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        detailDataArray
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Data detail hasil successfully saved:', data);
+                    setTimeout(function() {
+                        document.getElementById('saveButton').disabled = true;
+                    }, 100);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                })
+        }
+    </script>
 
 
 </body>
