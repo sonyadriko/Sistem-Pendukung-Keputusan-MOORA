@@ -9,3 +9,7 @@ User-Friendly Interface: Provides an intuitive interface for entering data and v
 PHP 8: Used for application logic and server-side processing.
 MySQL: Used for storing data related to phones, criteria, and weights.
 HTML/CSS/JavaScript: Used for developing the user interface.
+<h2>Contribution</h2>
+Contributions are welcome! Please open an issue for discussion or submit a pull request for improvements or new features.
+<h2>License</h2>
+This project is licensed under the MIT License
