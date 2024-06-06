@@ -1,5 +1,5 @@
 <?php
-include 'koneksi.php';
+include '../config/database.php';
 session_start();
 if (!isset($_SESSION['id_users'])) {
     header('Location: login.php');
@@ -22,7 +22,7 @@ if (!isset($_SESSION['id_users'])) {
     <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
     <meta name="author" content="Łukasz Holeczek">
     <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
-    <title>Kriteria</title>
+    <title>Tambah Data Kriteria</title>
     <link rel="apple-touch-icon" sizes="57x57" href="assets/favicon/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="assets/favicon/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="assets/favicon/apple-icon-72x72.png">
@@ -48,76 +48,54 @@ if (!isset($_SESSION['id_users'])) {
     <!-- We use those styles to show code examples, you should remove them in your application.-->
     <link href="css/examples.css" rel="stylesheet">
     <link href="vendors/@coreui/chartjs/css/coreui-chartjs.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-
 </head>
 
 <body>
-    <?php include 'sidebar.php' ?>
+    <?php include 'sidebar.php'; ?>
     <div class="wrapper d-flex flex-column min-vh-100 bg-light">
-        <?php include 'header.php' ?>
+        <?php include 'header.php'; ?>
         <div class="body flex-grow-1 px-3">
             <div class="container-lg">
                 <div class="row">
-                <div class="col-md-12">
-              <div class="card mb-4">
-                <div class="card-header">Data Kriteria</div>
-                <div class="card-body">
-                    <!-- <button class="mb-4">Tambah Data</button> -->
-                    <!-- <a href="tambah_kriteria.php" class="btn btn-primary btn-user mb-4">Tambah Kriteria</a> -->
-                <table class="table table-bordered table-striped-columns" id="dataTable">
-                        <thead>
-                            <th>No</th>
-                            <th>Nama Kriteria</th>
-                            <th>Bobot</th>
-                            <th>Tipe Kriteria</th>
-                            <th>Aksi</th>
-                        </thead>
-                        <tbody>
-                        <?php 
-                $no = 1;
-                $get_data = mysqli_query($conn, "select * from kriteria");
-                while($display = mysqli_fetch_array($get_data)) {
-                    $id = $display['id_kriteria'];
-                    $nama = $display['nama_kriteria'];
-                    $bobot = $display['bobot_kriteria'];
-                    $tipe = $display['tipe_kriteria'];
-                   
-                
-                ?>
-                            <tr>
-                                <td><?php echo $no ?></td>
-                                <td><?php echo $nama ?></td>
-                                <td><?php echo $bobot ?></td>
-                                <td><?php echo $tipe ?></td>
-                                <td>
-                                                <a href='edit_kriteria.php?GetID=<?php echo $id; ?>'
-                                                    style="text-decoration: none; list-style: none;"><input
-                                                        type='submit' value='Ubah' id='editbtn'
-                                                        class="btn btn-primary btn-user"></a>
-                                                <!-- <a href='delete_kriteria.php?Del=<?php echo $id; ?>'
-                                                    style="text-decoration: none; list-style: none;"><input
-                                                        type='submit' value='Hapus' id='delbtn'
-                                                        class="btn btn-primary btn-user"></a> -->
-                                            </td>
-                            </tr>
-                            <?php
-              $no++;
-                }
-              ?>
-                        </tbody>
-                    </table>
+                    <div class="col-md-12">
+                        <div class="card mb-4">
+                            <div class="card-header">Tambah Data Kriteria</div>
+                            <div class="card-body">
+                                <form action="tambah_kriteria.php" method="post">
+                                    <div class="row mb-3">
+                                        <label class="col-sm-2 col-form-label" for="nama">Nama Kriteria</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" id="nama" name="nama" type="text"
+                                                placeholder="Enter Nama Kriteria">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label class="col-sm-2 col-form-label" for="bobot">Bobot Kriteria</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" id="bobot" name="bobot" type="number"
+                                                placeholder="Enter Bobot Kriteria">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label class="col-sm-2 col-form-label" for="merk">Tipe Kriteria</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" id="tipe" name="tipe" type="text"
+                                                placeholder="Enter Tipe Kriteria">
+                                        </div>
+                                    </div>
+                                
+                                    <button class="btn btn-primary" type="submit" name="submit">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-              </div>
-                </div>
-                    
-                </div>
-                
                 <!-- /.row-->
                 <!-- /.card.mb-4-->
             </div>
         </div>
-       <?php include 'footer.php' ?>
+        <?php include 'footer.php'; ?>
     </div>
     <!-- CoreUI and necessary plugins-->
     <script src="vendors/@coreui/coreui/js/coreui.bundle.min.js"></script>
@@ -127,14 +105,31 @@ if (!isset($_SESSION['id_users'])) {
     <script src="vendors/@coreui/chartjs/js/coreui-chartjs.js"></script>
     <script src="vendors/@coreui/utils/js/coreui-utils.js"></script>
     <script src="js/main.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script></script>
 
-    <script>
-        $(document).ready(function() {
-            $('#dataTable').DataTable();
-        });
-    </script>
 </body>
 
 </html>
+<?php 
+    include '../config/database.php';
+
+    if (isset($_POST['submit'])) {
+        $nama = mysqli_real_escape_string($conn, $_POST['nama']);
+        $bobot = mysqli_real_escape_string($conn, $_POST['bobot']);
+        $tipe = mysqli_real_escape_string($conn, $_POST['tipe']);
+      
+        $insertData = "INSERT INTO kriteria (`id_kriteria`,`nama_kriteria`, `bobot_kriteria`, `tipe_kriteria`) 
+                       VALUES (NULL, '$nama', '$bobot', '$tipe')";
+    
+        $insertResult = mysqli_query($conn, $insertData);
+    
+        if ($insertResult) {
+            echo "<script>alert('Berhasil menambah data kriteria.')</script>";
+            echo "<script>window.location.href = 'kriteria.php';</script>";
+            // Alternatively, you can use: echo "<script>location.reload();</script>";
+        } else {
+            echo "Error: " . mysqli_error($conn);
+        }
+    }
+    
+?>

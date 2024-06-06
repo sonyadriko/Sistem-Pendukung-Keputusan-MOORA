@@ -1,6 +1,6 @@
 <?php
 // save_data_detail.php
-include 'koneksi.php';
+include '../config/database.php';
 
 // Retrieve data from the request
 $data = json_decode(file_get_contents("php://input"), true);

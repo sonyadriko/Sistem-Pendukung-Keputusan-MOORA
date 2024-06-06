@@ -1,5 +1,5 @@
 <?php
-include 'koneksi.php';
+include '../config/database.php';
 session_start();
 if (!isset($_SESSION['id_users'])) {
     header('Location: login.php');
@@ -12,48 +12,16 @@ $totalData = $row['total'];
 <html lang="en">
 
 <head>
-    <base href="./">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
-    <meta name="author" content="Łukasz Holeczek">
-    <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
     <title>Hitung</title>
-    <link rel="apple-touch-icon" sizes="57x57" href="assets/favicon/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="assets/favicon/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="assets/favicon/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="assets/favicon/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="assets/favicon/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="assets/favicon/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="assets/favicon/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="assets/favicon/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="assets/favicon/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
-    <link rel="manifest" href="assets/favicon/manifest.json">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="assets/favicon/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
-    <!-- Vendors styles-->
-    <link rel="stylesheet" href="vendors/simplebar/css/simplebar.css">
-    <link rel="stylesheet" href="css/vendors/simplebar.css">
-    <!-- Main styles for this application-->
-    <link href="css/style.css" rel="stylesheet">
-    <!-- We use those styles to show code examples, you should remove them in your application.-->
-    <link href="css/examples.css" rel="stylesheet">
-    <link href="vendors/@coreui/chartjs/css/coreui-chartjs.css" rel="stylesheet">
-
+    <?php include 'scripts.php' ?>
     <!-- DataTables CSS -->
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 
-<!-- jQuery Library -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- jQuery Library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<!-- DataTables JS -->
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 </head>
 
 <body>
@@ -337,41 +305,41 @@ $totalData = $row['total'];
                 $panjang_vektor_memori = sqrt($sum_of_squares_memori);
                 ?>
                 <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Kriteria</th>
-                        <th>Hasil Normalisasi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>K1</td>
-                        <td><?php echo $panjang_vektor_harga; ?></td>
-                    </tr>
-                    <tr>
-                        <td>K2</td>
-                        <td><?php echo $panjang_vektor_daya; ?></td>
-                    </tr>
-                    <tr>
-                        <td>K3</td>
-                        <td><?php echo $panjang_vektor_sistem; ?></td>
-                    </tr>
-                    <tr>
-                        <td>K4</td>
-                        <td><?php echo $panjang_vektor_ram; ?></td>
-                    </tr>
-                    <tr>
-                        <td>K5</td>
-                        <td><?php echo $panjang_vektor_tahun; ?></td>
-                    </tr>
-                    <tr>
-                        <td>K6</td>
-                        <td><?php echo $panjang_vektor_memori; ?></td>
-                    </tr>
-                </tbody>
-            </table>
-                
-                
+                    <thead>
+                        <tr>
+                            <th>Kriteria</th>
+                            <th>Hasil Normalisasi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>K1</td>
+                            <td><?php echo $panjang_vektor_harga; ?></td>
+                        </tr>
+                        <tr>
+                            <td>K2</td>
+                            <td><?php echo $panjang_vektor_daya; ?></td>
+                        </tr>
+                        <tr>
+                            <td>K3</td>
+                            <td><?php echo $panjang_vektor_sistem; ?></td>
+                        </tr>
+                        <tr>
+                            <td>K4</td>
+                            <td><?php echo $panjang_vektor_ram; ?></td>
+                        </tr>
+                        <tr>
+                            <td>K5</td>
+                            <td><?php echo $panjang_vektor_tahun; ?></td>
+                        </tr>
+                        <tr>
+                            <td>K6</td>
+                            <td><?php echo $panjang_vektor_memori; ?></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
                 <div class="row mt-4">
                     <div class="col-md-12">
                         <div class="card mb-4">
@@ -635,8 +603,8 @@ $totalData = $row['total'];
                                     </tbody>
                                 </table>
                                 <script>
-                                    var hasilhitungjson = <?php echo json_encode($alternatif_nilai_akhir_encoded); ?>;
-                                    console.log(hasilhitungjson);
+                                var hasilhitungjson = <?php echo json_encode($alternatif_nilai_akhir_encoded); ?>;
+                                console.log(hasilhitungjson);
                                 </script>
                             </div>
                         </div>
@@ -676,119 +644,114 @@ $totalData = $row['total'];
         </div>
         <?php include 'footer.php'; ?>
     </div>
-    <!-- CoreUI and necessary plugins-->
-    <script src="vendors/@coreui/coreui/js/coreui.bundle.min.js"></script>
-    <script src="vendors/simplebar/js/simplebar.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-    <!-- Plugins and scripts required by this view-->
-    <script src="js/main.js"></script>
+    <?php include 'js.php' ?>
     <script>
-$(document).ready( function () {
-    $('.table').DataTable();
-});
-$(document).ready( function () {
-    $('.table2').DataTable();
-});
-</script>
+    $(document).ready(function() {
+        $('.table').DataTable();
+    });
+    $(document).ready(function() {
+        $('.table2').DataTable();
+    });
+    </script>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var hasilhitung = [];
-            const saveButton = document.getElementById('saveButton');
-            if (saveButton) {
-                console.log('Button Disabled:', saveButton.disabled);
-            }
+    document.addEventListener("DOMContentLoaded", function() {
+        var hasilhitung = [];
+        const saveButton = document.getElementById('saveButton');
+        if (saveButton) {
+            console.log('Button Disabled:', saveButton.disabled);
+        }
 
-            document.addEventListener("submit", function(event) {
-                event.preventDefault();
-                saveData(); //Pass hasilhitung
-            });
-
+        document.addEventListener("submit", function(event) {
+            event.preventDefault();
+            saveData(); //Pass hasilhitung
         });
 
-        async function saveData() {
-            const nama_uji = document.getElementById('nama_uji').value;
-            if (!nama_uji) {
-                swal("Error!", "Nama Uji harus diisi.", "error");
-                return; // Menghentikan proses pengiriman data jika input tidak diisi
+    });
+
+    async function saveData() {
+        const nama_uji = document.getElementById('nama_uji').value;
+        if (!nama_uji) {
+            swal("Error!", "Nama Uji harus diisi.", "error");
+            return; // Menghentikan proses pengiriman data jika input tidak diisi
+        }
+        const date = new Date();
+        date.setUTCHours(date.getUTCHours() + 7);
+        var data = {
+            nama_uji: nama_uji,
+            tanggal: date
+        };
+        try {
+            const response = await fetch('save_data.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response wasn\'t ok');
             }
-            const date = new Date();
-            date.setUTCHours(date.getUTCHours() + 7);
-            var data = {
-                nama_uji: nama_uji,
-                tanggal: date
+
+            const textData = await response.text();
+            console.log('Data hasil dari server: ', textData);
+
+            if (textData.trim() == '') {
+                console.error('Empty response from server.');
+                return;
+            }
+
+            const parsedData = JSON.parse(textData);
+            console.log('Data hasil berhasil di-parse:', parsedData);
+
+            var hasilhitung = hasilhitungjson || [];
+            document.getElementById('saveButton').disabled = true;
+            saveDataDetail(parsedData.last_id, hasilhitung);
+
+            swal("Success!", "Data berhasil disimpan.", "success");
+
+        } catch (error) {
+            console.error('Error:', error);
+            swal("Error!", "Terjadi kesalahan saat menyimpan data.", "error");
+        }
+    }
+
+    function saveDataDetail(idHasil, hasilhitung) {
+        var detailDataArray = [];
+
+        hasilhitung.forEach(rule => {
+            var detailData = {
+                id_hasil: idHasil,
+                nama_alternatif: rule.nama,
+                number: rule.nilai_akhir,
+                rank: rule.ranking,
             };
-            try {
-                const response = await fetch('save_data.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data),
-                });
+            detailDataArray.push(detailData);
 
-                if (!response.ok) {
-                    throw new Error('Network response wasn\'t ok');
-                }
+        })
+        console.log(detailDataArray);
 
-                const textData = await response.text();
-                console.log('Data hasil dari server: ', textData);
-
-                if (textData.trim() == '') {
-                    console.error('Empty response from server.');
-                    return;
-                }
-
-                const parsedData = JSON.parse(textData);
-                console.log('Data hasil berhasil di-parse:', parsedData);
-
-                var hasilhitung = hasilhitungjson || [];
-                document.getElementById('saveButton').disabled = true;
-                saveDataDetail(parsedData.last_id, hasilhitung);
-
-                swal("Success!", "Data berhasil disimpan.", "success");
-
-            } catch (error) {
-                console.error('Error:', error);
-                swal("Error!", "Terjadi kesalahan saat menyimpan data.", "error");
-            }
-        }
-
-        function saveDataDetail(idHasil, hasilhitung) {
-            var detailDataArray = [];
-
-            hasilhitung.forEach(rule => {
-                var detailData = {
-                    id_hasil: idHasil,
-                    nama_alternatif: rule.nama,
-                    number: rule.nilai_akhir,
-                    rank: rule.ranking,
-                };
-                detailDataArray.push(detailData);
-
+        fetch('save_data_detail.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    detailDataArray
+                }),
             })
-            console.log(detailDataArray);
-
-            fetch('save_data_detail.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        detailDataArray
-                    }),
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Data detail hasil successfully saved:', data);
-                    setTimeout(function() {
-                        document.getElementById('saveButton').disabled = true;
-                    }, 100);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                })
-        }
+            .then(response => response.json())
+            .then(data => {
+                console.log('Data detail hasil successfully saved:', data);
+                setTimeout(function() {
+                    document.getElementById('saveButton').disabled = true;
+                }, 100);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            })
+    }
     </script>
 
 

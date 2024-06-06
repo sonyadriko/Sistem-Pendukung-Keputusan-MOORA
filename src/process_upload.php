@@ -2,7 +2,7 @@
 session_start();
 
 // Include database connection file
-include 'koneksi.php';
+include '../config/database.php';
 
 // Redirect to login page if user is not logged in
 if (!isset($_SESSION['id_users'])) {

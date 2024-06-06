@@ -1,5 +1,5 @@
 <?php
-include 'koneksi.php'; // Include file koneksi.php untuk menghubungkan ke database
+include '../config/database.php'; // Include file ../config/database.php untuk menghubungkan ke database
 
 // Query untuk menghapus semua data dari tabel handphone
 $sql = "TRUNCATE TABLE handphone";

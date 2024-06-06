@@ -1,5 +1,5 @@
 <?php
-    include 'koneksi.php';
+    include '../config/database.php';
 
     session_start();
 

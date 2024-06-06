@@ -1,13 +1,13 @@
 <?php
-include 'koneksi.php';
+include '../config/database.php';
 session_start();
 if (!isset($_SESSION['id_users'])) {
     header('Location: login.php');
 }
 
-include 'koneksi.php';
+include '../config/database.php';
 
-require 'vendor/autoload.php'; // Make sure this path is correct
+require '../vendor/autoload.php'; // Make sure this path is correct
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -114,39 +114,8 @@ function parseDayaTahan($dayaTahanString)
 <html lang="en">
 
 <head>
-    <base href="./">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
-    <meta name="author" content="Łukasz Holeczek">
-    <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
     <title>Handphone</title>
-    <link rel="apple-touch-icon" sizes="57x57" href="assets/favicon/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="assets/favicon/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="assets/favicon/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="assets/favicon/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="assets/favicon/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="assets/favicon/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="assets/favicon/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="assets/favicon/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="assets/favicon/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
-    <link rel="manifest" href="assets/favicon/manifest.json">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="assets/favicon/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
-    <!-- Vendors styles-->
-    <link rel="stylesheet" href="vendors/simplebar/css/simplebar.css">
-    <link rel="stylesheet" href="css/vendors/simplebar.css">
-    <!-- Main styles for this application-->
-    <link href="css/style.css" rel="stylesheet">
-    <!-- We use those styles to show code examples, you should remove them in your application.-->
-    <link href="css/examples.css" rel="stylesheet">
-    <link href="vendors/@coreui/chartjs/css/coreui-chartjs.css" rel="stylesheet">
+    <?php include 'scripts.php' ?>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 </head>
 
@@ -155,26 +124,27 @@ function parseDayaTahan($dayaTahanString)
     <div class="wrapper d-flex flex-column min-vh-100 bg-light">
         <?php include 'header.php'; ?>
         <!-- <div class="body flex-grow-1 px-3"> -->
-            <div class="container-lg">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card mb-4">
-                            <div class="card-header">Upload Excel File</div>
-                            <div class="card-body">
-                                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
-                                    <div class="mb-3">
-                                        <label for="excelFile" class="form-label">Choose Excel File</label>
-                                        <input type="file" class="form-control" id="excelFile" name="excelFile"
-                                            accept=".xls, .xlsx" required>
-                                        <div id="fileError" class="invalid-feedback"></div>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary" name="import">Upload</button>
-                                </form>
-                            </div>
+        <div class="container-lg">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mb-4">
+                        <div class="card-header">Upload Excel File</div>
+                        <div class="card-body">
+                            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post"
+                                enctype="multipart/form-data">
+                                <div class="mb-3">
+                                    <label for="excelFile" class="form-label">Choose Excel File</label>
+                                    <input type="file" class="form-control" id="excelFile" name="excelFile"
+                                        accept=".xls, .xlsx" required>
+                                    <div id="fileError" class="invalid-feedback"></div>
+                                </div>
+                                <button type="submit" class="btn btn-primary" name="import">Upload</button>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         <!-- </div> -->
         <div class="container-lg">
             <div class="row">
@@ -264,93 +234,87 @@ function parseDayaTahan($dayaTahanString)
     </div>
     <?php include 'footer.php'; ?>
     </div>
-    <!-- CoreUI and necessary plugins-->
-    <script src="vendors/@coreui/coreui/js/coreui.bundle.min.js"></script>
-    <script src="vendors/simplebar/js/simplebar.min.js"></script>
-    <!-- Plugins and scripts required by this view-->
-    <script src="vendors/chart.js/js/chart.min.js"></script>
-    <script src="vendors/@coreui/chartjs/js/coreui-chartjs.js"></script>
-    <script src="vendors/@coreui/utils/js/coreui-utils.js"></script>
-    <script src="js/main.js"></script>
+    <?php include 'js.php' ?>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <script>
-        document.getElementById("uploadForm").addEventListener("submit", function(event) {
-            var fileInput = document.getElementById("excelFile");
-            var fileError = document.getElementById("fileError");
+    document.getElementById("uploadForm").addEventListener("submit", function(event) {
+        var fileInput = document.getElementById("excelFile");
+        var fileError = document.getElementById("fileError");
 
-            if (fileInput.files.length === 0) {
-                fileError.textContent = "Please select a file.";
+        if (fileInput.files.length === 0) {
+            fileError.textContent = "Please select a file.";
+            fileError.style.display = "block";
+            event.preventDefault();
+        } else {
+            var file = fileInput.files[0];
+            var fileName = file.name;
+            var fileSize = file.size;
+            var fileType = file.type;
+
+            if (fileType !== "application/vnd.ms-excel" && fileType !==
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
+                fileError.textContent = "Invalid file format. Please select a valid Excel file.";
+                fileError.style.display = "block";
+                event.preventDefault();
+            } else if (fileSize > 5242880) {
+                fileError.textContent = "File size exceeds the maximum limit of 5MB.";
                 fileError.style.display = "block";
                 event.preventDefault();
             } else {
-                var file = fileInput.files[0];
-                var fileName = file.name;
-                var fileSize = file.size;
-                var fileType = file.type;
-
-                if (fileType !== "application/vnd.ms-excel" && fileType !== "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
-                    fileError.textContent = "Invalid file format. Please select a valid Excel file.";
-                    fileError.style.display = "block";
-                    event.preventDefault();
-                } else if (fileSize > 5242880) {
-                    fileError.textContent = "File size exceeds the maximum limit of 5MB.";
-                    fileError.style.display = "block";
-                    event.preventDefault();
-                } else {
-                    fileError.style.display = "none";
-                }
+                fileError.style.display = "none";
             }
-        });
-
-        $(document).ready(function() {
-            $('#dataTable').DataTable();
-        });
-
-        function confirmDelete() {
-            // Tampilkan kotak dialog konfirmasi SweetAlert
-            swal({
-                    title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover this data!",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        // Jika pengguna menekan tombol "OK", kirim permintaan hapus ke server
-                        deleteData();
-                    } else {
-                        // Jika pengguna menekan tombol "Cancel", tampilkan pesan bahwa penghapusan dibatalkan
-                        swal("Your data is safe!", {
-                            icon: "info",
-                        });
-                    }
-                });
         }
+    });
 
-        function deleteData() {
-            // Membuat permintaan HTTP ke server untuk menghapus semua data
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", "delete_all_data.php", true);
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    // Menghapus semua data pada tabel setelah berhasil dihapus dari server
-                    // document.getElementById("handphoneTable").innerHTML = "";
-                    // Tampilkan pesan sukses menggunakan SweetAlert
-                    swal("Success!", "All data has been deleted.", "success")
-                        .then(() => {
-                            // Memuat ulang halaman setelah tombol "OK" ditekan
-                            window.location.reload();
-                        });
-                } else if (xhr.readyState === 4 && xhr.status !== 200) {
-                    // Tampilkan pesan gagal jika terjadi kesalahan pada server
-                    swal("Error!", "Failed to delete data.", "error");
+    $(document).ready(function() {
+        $('#dataTable').DataTable();
+    });
+
+    function confirmDelete() {
+        // Tampilkan kotak dialog konfirmasi SweetAlert
+        swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this data!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    // Jika pengguna menekan tombol "OK", kirim permintaan hapus ke server
+                    deleteData();
+                } else {
+                    // Jika pengguna menekan tombol "Cancel", tampilkan pesan bahwa penghapusan dibatalkan
+                    swal("Your data is safe!", {
+                        icon: "info",
+                    });
                 }
-            };
-            xhr.send();
-        }
+            });
+    }
+
+    function deleteData() {
+        // Membuat permintaan HTTP ke server untuk menghapus semua data
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "delete_all_data.php", true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // Menghapus semua data pada tabel setelah berhasil dihapus dari server
+                // document.getElementById("handphoneTable").innerHTML = "";
+                // Tampilkan pesan sukses menggunakan SweetAlert
+                swal("Success!", "All data has been deleted.", "success")
+                    .then(() => {
+                        // Memuat ulang halaman setelah tombol "OK" ditekan
+                        window.location.reload();
+                    });
+            } else if (xhr.readyState === 4 && xhr.status !== 200) {
+                // Tampilkan pesan gagal jika terjadi kesalahan pada server
+                swal("Error!", "Failed to delete data.", "error");
+            }
+        };
+        xhr.send();
+    }
     </script>
 
 </body>
