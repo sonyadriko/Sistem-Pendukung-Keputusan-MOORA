@@ -6,9 +6,11 @@ Weight Assignment: Allows users to assign weights to each criterion according to
 Ranking of Options: Ranks the phones based on their overall scores calculated using the MOORA method.
 User-Friendly Interface: Provides an intuitive interface for entering data and viewing results.
 <h2>Technologies Used</h2>
-PHP 8: Used for application logic and server-side processing.
-MySQL: Used for storing data related to phones, criteria, and weights.
-HTML/CSS/JavaScript: Used for developing the user interface.
+<ul>
+  <li>PHP 8: Used for application logic and server-side processing.</li>
+  <li>MySQL: Used for storing data related to phones, criteria, and weights.</li>
+  <li>HTML/CSS/JavaScript: Used for developing the user interface.</li>
+</ul>
 <h2>Contribution</h2>
 Contributions are welcome! Please open an issue for discussion or submit a pull request for improvements or new features.
 <h2>License</h2>
