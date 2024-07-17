@@ -152,8 +152,8 @@ function parseDayaTahan($dayaTahanString)
                     <div class="card mb-4">
                         <div class="card-header">Data Handphone</div>
                         <div class="card-body">
-                            <a href="tambah_data.php" class="btn btn-primary btn-user mb-4">Tambah
-                                Data</a>
+                            <!-- <a href="tambah_data.php" class="btn btn-primary btn-user mb-4">Tambah
+                                Data</a> -->
                             <div class="table-responsive">
                                 <table class="table table-bordered table-striped-columns" id="dataTable">
                                     <thead>

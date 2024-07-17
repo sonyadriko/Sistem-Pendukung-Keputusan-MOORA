@@ -7,7 +7,8 @@
                 <svg class="nav-icon">
                     <use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-speedometer"></use>
                 </svg> Dashboard</a></li>
-        <?php if($_SESSION['role'] == 'admin') { ?>
+        <?php 
+        // if($_SESSION['role'] == 'admin') { ?>
         <li class="nav-item"><a class="nav-link" href="data.php">
                 <svg class="nav-icon">
                     <use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-calculator"></use>
@@ -20,7 +21,8 @@
                 <svg class="nav-icon">
                     <use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-calculator"></use>
                 </svg> Hitung</a></li>
-        <?php } ?>
+        <?php 
+    // } ?>
 
         <li class="nav-item"><a class="nav-link" href="history.php">
                 <svg class="nav-icon">

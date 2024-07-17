@@ -4,6 +4,13 @@ session_start();
 if (!isset($_SESSION['id_users'])) {
     header('Location: login.php');
 }
+
+$query = "SELECT SUM(bobot_kriteria) as totalBobot FROM kriteria";
+$result = mysqli_query($conn, $query);
+$row = mysqli_fetch_assoc($result);
+$totalBobot = $row['totalBobot'];
+
+
 $get_data = mysqli_query($conn, 'SELECT COUNT(*) AS total FROM handphone');
 $row = mysqli_fetch_assoc($get_data);
 $totalData = $row['total'];
@@ -29,6 +36,7 @@ $totalData = $row['total'];
     <div class="wrapper d-flex flex-column min-vh-100 bg-light">
         <?php include 'header.php'; ?>
         <div class="body flex-grow-1 px-3">
+            <?php if ($totalBobot == 100){?>
             <?php if ($totalData > 0) { ?>
             <div class="container-lg">
                 <div class="row">
@@ -635,6 +643,10 @@ $totalData = $row['total'];
                         </div>
                     </div>
                 </div>
+                <?php } ?>
+                <?php } else {?>
+                <!-- <div id="message"></div> -->
+                <div class="alert alert-warning">Total bobot harus 100. Saat ini <?php echo $totalBobot ?></div>
                 <?php } ?>
 
 

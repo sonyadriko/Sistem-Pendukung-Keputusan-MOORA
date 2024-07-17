@@ -4,7 +4,8 @@
 ?>
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <base href="./">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -31,64 +32,70 @@
     <meta name="msapplication-TileImage" content="assets/favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
     <!-- Vendors styles-->
-    <link rel="stylesheet" href="vendors/simplebar/css/simplebar.css">
-    <link rel="stylesheet" href="css/vendors/simplebar.css">
+    <link rel="stylesheet" href="../vendors/simplebar/css/simplebar.css">
+    <link rel="stylesheet" href="../assets/css/vendors/simplebar.css">
     <!-- Main styles for this application-->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="../assets/css/style.css" rel="stylesheet">
     <!-- We use those styles to show code examples, you should remove them in your application.-->
-    <link href="css/examples.css" rel="stylesheet">
-  </head>
-  <body>
+    <link href="../assets/css/examples.css" rel="stylesheet">
+</head>
+
+<body>
     <div class="bg-light min-vh-100 d-flex flex-row align-items-center">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-4">
-            <div class="card-group d-block d-md-flex row">
-              <div class="card col-md-7 p-4 mb-0">
-                <div class="card-body">
-                  <h1>Login</h1>
-                  <p class="text-medium-emphasis">Sign In to your account</p>
-                  <form action="login.php" method="post" onsubmit="return validasi()">
-                    <div class="input-group mb-3"><span class="input-group-text">
-                        <svg class="icon">
-                          <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-user"></use>
-                        </svg></span>
-                      <input class="form-control" id="username" name="username" type="text" placeholder="Username">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-4">
+                    <div class="card-group d-block d-md-flex row">
+                        <div class="card col-md-7 p-4 mb-0">
+                            <div class="card-body">
+                                <h1>Login</h1>
+                                <p class="text-medium-emphasis">Sign In to your account</p>
+                                <form action="login.php" method="post" onsubmit="return validasi()">
+                                    <div class="input-group mb-3"><span class="input-group-text">
+                                            <svg class="icon">
+                                                <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-user"></use>
+                                            </svg></span>
+                                        <input class="form-control" id="username" name="username" type="text"
+                                            placeholder="Username">
+                                    </div>
+                                    <div class="input-group mb-4"><span class="input-group-text">
+                                            <svg class="icon">
+                                                <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-lock-locked">
+                                                </use>
+                                            </svg></span>
+                                        <input class="form-control" id="password" name="password" type="password"
+                                            placeholder="Password">
+                                    </div>
+                                    <input type="hidden" name="login_input" value="1">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <button class="btn btn-primary px-4" name="login_button"
+                                                type="submit">Login</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
-                    <div class="input-group mb-4"><span class="input-group-text">
-                        <svg class="icon">
-                          <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-lock-locked"></use>
-                        </svg></span>
-                      <input class="form-control" id="password" name="password" type="password" placeholder="Password">
-                    </div>
-                    <input type="hidden" name="login_input" value="1">
-                    <div class="row">
-                      <div class="col-6">
-                        <button class="btn btn-primary px-4" name="login_button" type="submit">Login</button>
-                      </div>
-                    </div>
-                  </form>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
     <!-- CoreUI and necessary plugins-->
     <script type="text/javascript">
-        function validasi() {
-            var username = document.getElementById("username").value;
-            var password = document.getElementById("password").value;		
-            if (username != "" && password!="") {
-                return true;
-            }else{
-                alert('Username dan Password harus di isi !');
-                return false;
-            }
+    function validasi() {
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        if (username != "" && password != "") {
+            return true;
+        } else {
+            alert('Username dan Password harus di isi !');
+            return false;
         }
+    }
     </script>
-    <script src="vendors/@coreui/coreui/js/coreui.bundle.min.js"></script>
-    <script src="vendors/simplebar/js/simplebar.min.js"></script>
-  </body>
+    <script src="../vendors/@coreui/coreui/js/coreui.bundle.min.js"></script>
+    <script src="../vendors/simplebar/js/simplebar.min.js"></script>
+</body>
+
 </html>
