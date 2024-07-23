@@ -17,7 +17,7 @@
                 <svg class="nav-icon">
                     <use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-calculator"></use>
                 </svg> Kriteria</a></li>
-        <li class="nav-item"><a class="nav-link" href="hitung.php">
+        <li class="nav-item"><a class="nav-link" href="cek_hitung.php">
                 <svg class="nav-icon">
                     <use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-calculator"></use>
                 </svg> Hitung</a></li>

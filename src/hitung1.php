@@ -10,17 +10,22 @@ $result = mysqli_query($conn, $query);
 $row = mysqli_fetch_assoc($result);
 $totalBobot = $row['totalBobot'];
 
-
-$get_data = mysqli_query($conn, 'SELECT COUNT(*) AS total FROM handphone');
-$row = mysqli_fetch_assoc($get_data);
-$totalData = $row['total'];
+$totalData = 0;
+$selected_ids = isset($_GET['id_handphone']) ? $_GET['id_handphone'] : null;
+var_dump($selected_ids);
+if ($selected_ids) {
+    $query = "SELECT COUNT(*) AS total FROM handphone WHERE id_handphone IN ($selected_ids)";
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_assoc($result);
+    $totalData = $row['total'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <title>Hitung</title>
-    <?php include 'scripts.php' ?>
+    <?php include 'scripts.php'; ?>
     <!-- DataTables CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 
@@ -35,9 +40,8 @@ $totalData = $row['total'];
     <?php include 'sidebar.php'; ?>
     <div class="wrapper d-flex flex-column min-vh-100 bg-light">
         <?php include 'header.php'; ?>
-        <!-- <?php echo $totalData ?> -->
         <div class="body flex-grow-1 px-3">
-            <?php if ($totalBobot == 100){?>
+            <?php if ($totalBobot == 100) { ?>
             <?php if ($totalData > 1) { ?>
             <div class="container-lg">
                 <div class="row">
@@ -62,7 +66,7 @@ $totalData = $row['total'];
                                         <tbody>
                                             <?php 
                                             $no = 1;
-                                            $get_data = mysqli_query($conn, "select * from handphone");
+                                            $get_data = mysqli_query($conn, "SELECT * FROM handphone WHERE id_handphone IN ($selected_ids)");
                                             while($display = mysqli_fetch_array($get_data)) {
                                                 $id = $display['id_handphone'];
                                                 $merk = $display['merk'];
@@ -180,7 +184,7 @@ $totalData = $row['total'];
                 $data_memori = [];
                 
                 // Ambil data dari database
-                $get_data = mysqli_query($conn, 'select * from handphone');
+                $get_data = mysqli_query($conn, "SELECT * FROM handphone WHERE id_handphone IN ($selected_ids)");
                 while ($display = mysqli_fetch_array($get_data)) {
                     $harga = $display['harga'];
                     $daya = $display['daya_tahan'];
@@ -378,7 +382,7 @@ $totalData = $row['total'];
                                             $normalisasi_tahun_arr = array();
                                             $normalisasi_memori_arr = array();
 
-                                            $get_data = mysqli_query($conn, "select * from handphone");
+                                            $get_data = mysqli_query($conn, "SELECT * FROM handphone WHERE id_handphone IN ($selected_ids)");
                                             while($display = mysqli_fetch_array($get_data)) {
                                                 $id = $display['id_handphone'];
                                                 $merk = $display['merk'];
@@ -452,15 +456,15 @@ $totalData = $row['total'];
                                                 $normalisasi_ram = $value_ram / $panjang_vektor_ram;
                                                 echo $normalisasi_ram;
                                                 ?></td>
-                                                <td><?php if ($tahun == '2014/2015') {
+                                                <td><?php if ($tahun == '2019') {
                                                     $value_tahun = '5';
-                                                } elseif ($tahun == '2016/2017') {
+                                                } elseif ($tahun == '2020') {
                                                     $value_tahun = '4';
-                                                } elseif ($tahun == '2018/2019') {
+                                                } elseif ($tahun == '2021') {
                                                     $value_tahun = '3';
-                                                } elseif ($tahun == '2020/2021') {
+                                                } elseif ($tahun == '2022') {
                                                     $value_tahun = '2';
-                                                } elseif ($tahun == '2022/2023') {
+                                                } elseif ($tahun == '2023') {
                                                     $value_tahun = '1';
                                                 }
                                                 $normalisasi_tahun = $value_tahun / $panjang_vektor_tahun;
@@ -632,40 +636,19 @@ $totalData = $row['total'];
                 </div>
                 <button id="saveButton" style="color: white;" class="btn btn-success mb-4"
                     onclick="saveData()">Save</button>
-                <?php } elseif($totalData > 0) { ?>
-                <div class="container-lg">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card bg-warning text-dark">
-                                <div class="card-body">
-                                    <p>Data handphone harus lebih dari satu</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <?php } else { ?>
+                <div class="alert alert-danger d-flex justify-content-between align-items-center" role="alert">
+                    <span>Pilih lebih dari satu handphone untuk melakukan perhitungan.</span>
+                    <a href="cek_hitung.php" class="btn btn-primary btn-sm">Kembali</a>
                 </div>
 
-                <?php } else {?>
-                <div class="container-lg">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card bg-danger text-white">
-                                <div class="card-body">
-                                    <p>Data handphone kosong</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <?php }?>
-                <?php } else {?>
-                <!-- <div id="message"></div> -->
-                <div class="alert alert-warning">Total bobot harus 100. Saat ini <?php echo $totalBobot ?></div>
                 <?php } ?>
-
-
-
-
+                <?php } else { ?>
+                <div class="alert alert-danger d-flex justify-content-between align-items-center" role="alert">
+                    Bobot kriteria harus sama dengan 100.
+                    <a href="kriteria.php" class="btn btn-primary btn-sm">Kembali</a>
+                </div>
+                <?php } ?>
             </div>
         </div>
         <?php include 'footer.php'; ?>
@@ -779,8 +762,6 @@ $totalData = $row['total'];
             })
     }
     </script>
-
-
 </body>
 
 </html>
