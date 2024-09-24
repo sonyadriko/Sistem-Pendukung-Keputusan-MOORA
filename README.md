@@ -1,17 +1,22 @@
 <h2>Background</h2>
-Selecting the right phones to warehouse involves considering multiple criteria such as cost, demand, specifications, and storage requirements. The MOORA method is a multi-criteria decision-making approach that helps in evaluating and ranking options based on these criteria. This project leverages the MOORA method to simplify and improve the decision-making process for warehousing phones.
+Memilih ponsel yang tepat untuk disimpan di gudang melibatkan pertimbangan berbagai kriteria seperti biaya, permintaan, spesifikasi, dan persyaratan penyimpanan. Metode MOORA adalah pendekatan pengambilan keputusan multi-kriteria yang membantu dalam mengevaluasi dan memberi peringkat opsi berdasarkan kriteria ini. Proyek ini memanfaatkan metode MOORA untuk menyederhanakan dan meningkatkan proses pengambilan keputusan untuk pergudangan ponsel.
+
 <h2>Key Features</h2>
-Multi-Criteria Evaluation: Evaluates phones based on multiple criteria such as price, performance, and storage needs.
-Weight Assignment: Allows users to assign weights to each criterion according to their importance.
-Ranking of Options: Ranks the phones based on their overall scores calculated using the MOORA method.
-User-Friendly Interface: Provides an intuitive interface for entering data and viewing results.
-<h2>Technologies Used</h2>
+Evaluasi Multi-Kriteria: Mengevaluasi ponsel berdasarkan beberapa kriteria seperti harga, kinerja, dan kebutuhan penyimpanan.
+Penetapan Bobot: Memungkinkan pengguna untuk menetapkan bobot pada setiap kriteria menurut tingkat kepentingannya.
+Pemeringkatan Opsi: Mengurutkan peringkat ponsel berdasarkan skor keseluruhan yang dihitung menggunakan metode MOORA.
+Antarmuka yang Ramah Pengguna: Menyediakan antarmuka yang intuitif untuk memasukkan data dan melihat hasil.
+Upload Excel: Memungkinkan pengguna untuk mengunggah data ponsel dan kriteria dalam format Excel, sehingga proses evaluasi dapat dilakukan dengan lebih mudah dan otomatis tanpa harus memasukkan data secara manual.
+
+<h2>Tech Stack</h2>
 <ul>
-  <li>PHP 8: Used for application logic and server-side processing.</li>
-  <li>MySQL: Used for storing data related to phones, criteria, and weights.</li>
-  <li>HTML/CSS/JavaScript: Used for developing the user interface.</li>
+  <li>PHP 8: Digunakan untuk logika aplikasi dan pemrosesan di sisi server.</li>
+  <li>MySQL: Digunakan untuk menyimpan data terkait ponsel, kriteria, dan bobot.</li>
+  <li>HTML/CSS/JavaScript: Digunakan untuk mengembangkan antarmuka pengguna, memberikan pengalaman yang responsif dan interaktif bagi pengguna.</li>
 </ul>
+
 <h2>Contribution</h2>
 Contributions are welcome! Please open an issue for discussion or submit a pull request for improvements or new features.
+
 <h2>License</h2>
 This project is licensed under the MIT License
